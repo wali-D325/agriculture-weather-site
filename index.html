@@ -372,31 +372,27 @@
       <p>AgriWeather © 2025 | Providing intelligent farming solutions</p>
     </footer>
   </div>
-  <!-- 
-    ERROR FIXED:
-    1. The JavaScript logic for switching tabs is missing, so the tabs won't work.
-    2. The 'tab-content' class is used for each tab, but only the first is set to 'active' by default. 
-       The rest will not show unless the JavaScript updates the classes.
-    3. The 'script.js' file is referenced, but if it doesn't contain the tab switching logic, add this inline fix:
-  -->
+
+  <!-- Tab Switching Script -->
   <script>
-    // Tab switching logic
     document.addEventListener('DOMContentLoaded', function () {
       const tabButtons = document.querySelectorAll('.tab-btn');
       const tabContents = document.querySelectorAll('.tab-content');
       tabButtons.forEach(btn => {
         btn.addEventListener('click', function () {
-          // Remove active from all buttons and contents
           tabButtons.forEach(b => b.classList.remove('active'));
           tabContents.forEach(c => c.classList.remove('active'));
-          // Add active to clicked button and corresponding content
           this.classList.add('active');
           const tabId = this.getAttribute('data-tab');
-          document.getElementById(tabId + '-tab').classList.add('active');
+          const tabContent = document.getElementById(tabId + '-tab');
+          if (tabContent) {
+            tabContent.classList.add('active');
+          }
         });
       });
     });
   </script>
+  <!-- Make sure script.js defines getWeather() and getLocationWeather() -->
   <script src="script.js"></script>
 </body>
 </html>
