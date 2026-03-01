@@ -1,13 +1,17 @@
 {
-  "name": "Agriculture Weather & Crop Suggestion",
   "short_name": "AgriWeather",
-  "start_url": "index.html",
+  "name": "AgriWeather Pro+ Ultimate",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2619/2619299.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#3d195d",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4caf50",
-  "icons": [{
-    "src": "favicon.ico",
-    "sizes": "48x48",
-    "type": "image/x-icon"
-  }]
+  "scope": "./",
+  "theme_color": "#008134"
 }
