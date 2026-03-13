@@ -1,237 +1,1036 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriWeather Pro+ | Elite Command Center</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #70E000; --glass: rgba(255, 255, 255, 0.05); }
-        body { font-family: 'Inter', sans-serif; background: #060d08; color: white; margin: 0; padding-bottom: 90px; }
-        .glass-card { background: var(--glass); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; }
-        .btn-primary { background: linear-gradient(135deg, #70E000, #38b000); color: #000; font-weight: 800; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .nav-item.active { color: #70E000; }
-        input[type="number"] { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; color: white; outline: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>AgriWeather Pro+ | Malawi</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050c06">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<!-- Google AdSense — replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+<style>
+:root{
+  --obsidian:#060d07;--void:#0a1209;--cavern:#111c12;--stone:#192419;--moss:#22341f;
+  --life:#5ddb4a;--life-bright:#7fff6a;--life-dim:#2d8f1a;--life-deep:#0d2b08;--life-glow:rgba(93,219,74,0.15);
+  --gold:#e8b84b;--gold-dim:#a07c28;--gold-pale:rgba(232,184,75,0.12);
+  --rain:#38a3c8;--red:#e8453c;--red-pale:rgba(232,69,60,0.1);--violet:#9b6dff;
+  --b1:rgba(93,219,74,0.1);--b2:rgba(255,255,255,0.05);--b3:rgba(255,255,255,0.09);
+  --text:#dff0dc;--muted:#5a7a56;--dim:#3a5038;
+  --font-display:'Cormorant Garamond',serif;--font-body:'Outfit',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--obsidian);color:var(--text);min-height:100vh;padding-bottom:82px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(93,219,74,0.04) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 90%,rgba(232,184,75,0.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.022;pointer-events:none;z-index:0}
+.card{background:var(--cavern);border:1px solid var(--b2);border-radius:16px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(93,219,74,0.2),transparent)}
+.card-gold{border-color:rgba(232,184,75,0.2)}.card-green{border-color:var(--b1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:10px;font-family:var(--font-body);font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .2s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent;letter-spacing:.2px}
+.btn::after{content:'';position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .12s}
+.btn:active::after{opacity:.06}
+.btn-p{background:linear-gradient(135deg,var(--life),var(--life-dim));color:#030a02;font-weight:700;box-shadow:0 4px 20px rgba(93,219,74,0.22)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(93,219,74,0.32)}
+.btn-o{background:transparent;border:1px solid var(--b1);color:var(--life)}
+.btn-o:hover{background:var(--life-glow)}
+.btn-g{background:transparent;border:1px solid var(--b2);color:var(--muted)}
+.btn-g:hover{border-color:var(--b3);color:var(--text)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:#1a0d00;font-weight:700}
+.btn-red{background:var(--red-pale);border:1px solid rgba(232,69,60,0.3);color:var(--red)}
+.btn-f{width:100%}.btn-sm{padding:8px 14px;font-size:12px;border-radius:8px}
+/* Social login */
+.soc{display:flex;align-items:center;gap:12px;padding:13px 17px;border-radius:12px;font-family:var(--font-body);font-weight:500;font-size:14px;cursor:pointer;border:1px solid var(--b3);background:var(--stone);color:var(--text);transition:all .2s;width:100%;-webkit-tap-highlight-color:transparent}
+.soc:hover{background:var(--moss);transform:translateY(-1px)}
+.soc:active{transform:translateY(0)}
+.soc-ico{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.soc-g{background:#fff}.soc-fb{background:#1877f2}.soc-gh{background:#24292e}.soc-em{background:linear-gradient(135deg,var(--gold),var(--gold-dim))}
+.sdiv{display:flex;align-items:center;gap:12px;margin:14px 0;color:var(--dim);font-size:11px;font-weight:500;letter-spacing:.8px;text-transform:uppercase}
+.sdiv::before,.sdiv::after{content:'';flex:1;height:1px;background:var(--b2)}
+.inp{width:100%;background:var(--stone);border:1px solid var(--b2);border-radius:10px;padding:13px 15px;color:var(--text);font-family:var(--font-body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none}
+.inp:focus{border-color:rgba(93,219,74,0.4);box-shadow:0 0 0 3px rgba(93,219,74,0.07)}
+.inp::placeholder{color:var(--dim)}
+select.inp option{background:#192419}
+textarea.inp{resize:vertical;min-height:80px}
+.flbl{display:block;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+/* ── NAV ── */
+#nav{position:fixed;bottom:0;left:0;right:0;background:rgba(6,13,7,0.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--b2);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0 10px;background:none;border:none;cursor:pointer;color:var(--dim);font-family:var(--font-body);font-size:9px;font-weight:500;transition:color .2s;position:relative;-webkit-tap-highlight-color:transparent}
+.nb .ni{font-size:18px;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.nb.on{color:var(--life)}.nb.on .ni{transform:translateY(-2px)}
+.nb.on::before{content:'';position:absolute;top:0;left:20%;right:20%;height:2px;background:var(--life);border-radius:0 0 4px 4px;box-shadow:0 0 8px rgba(93,219,74,0.5)}
+/* ── TOP BAR ── */
+#topbar{background:rgba(6,13,7,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--b2);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:90}
+.logo{font-family:var(--font-display);font-size:17px;font-weight:700;letter-spacing:-.3px;font-style:italic;white-space:nowrap}
+.logo em{color:var(--life);font-style:normal}
+.topbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+/* Auth CTA in topbar */
+#topAuthCta{display:flex;align-items:center;gap:6px}
+#topAuthCta .tl-in{font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;padding:7px 12px;border-radius:8px;border:1px solid var(--b2);background:var(--stone);-webkit-tap-highlight-color:transparent;transition:all .15s}
+#topAuthCta .tl-in:hover{color:var(--text);border-color:var(--b3)}
+#topAuthCta .tl-up{font-size:12px;font-weight:700;cursor:pointer;padding:7px 13px;border-radius:8px;background:linear-gradient(135deg,var(--life),var(--life-dim));color:#030a02;-webkit-tap-highlight-color:transparent;border:none;transition:all .15s}
+#topAuthCta .tl-up:hover{box-shadow:0 4px 16px rgba(93,219,74,0.3)}
+/* User pill when logged in */
+#userPill{display:none;align-items:center;gap:7px;background:var(--stone);border:1px solid var(--b2);border-radius:20px;padding:5px 10px 5px 6px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.user-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--life),var(--life-deep));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#030a02}
+#userPill span{font-size:11px;font-weight:600;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* ── NOTIF BELL ── */
+#notifBell{position:relative;background:none;border:none;cursor:pointer;color:var(--muted);font-size:19px;padding:4px;transition:color .2s;-webkit-tap-highlight-color:transparent}
+#notifBell.lit{color:var(--gold)}
+#notifBell .badge{position:absolute;top:2px;right:1px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--obsidian);display:none}
+#notifBell.has-n .badge{display:block}
+/* ── OFFLINE ── */
+#offBan{display:none;background:linear-gradient(90deg,var(--red),#c0392b);color:#fff;text-align:center;padding:7px;font-size:11px;font-weight:700;letter-spacing:.4px}
+#offBan.on{display:block}
+/* ── TOAST ── */
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--stone);border:1px solid var(--b3);color:var(--text);padding:11px 20px;border-radius:40px;font-size:12px;font-weight:500;opacity:0;transition:all .22s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:300;white-space:nowrap;max-width:88vw;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+/* ── MODAL (Login/Signup overlay) ── */
+#authModal{position:fixed;inset:0;z-index:500;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px)}
+#authModal.on{display:flex;animation:fadein .2s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.modal-sheet{background:var(--cavern);border:1px solid var(--b2);border-radius:24px 24px 0 0;padding:24px 20px 36px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;position:relative;animation:slideup .3s cubic-bezier(.34,1.2,.64,1)}
+@keyframes slideup{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-pull{width:40px;height:4px;background:var(--b3);border-radius:2px;margin:0 auto 20px}
+.modal-close{position:absolute;top:16px;right:18px;background:var(--stone);border:none;border-radius:50%;width:30px;height:30px;color:var(--muted);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+.modal-close:hover{color:var(--text)}
+.atabs{display:flex;background:var(--stone);border-radius:9px;padding:3px;gap:2px;margin-bottom:20px}
+.atab{flex:1;padding:8px;border-radius:7px;font-size:13px;font-weight:600;text-align:center;cursor:pointer;color:var(--muted);transition:all .2s;border:none;background:transparent;font-family:var(--font-body)}
+.atab.on{background:var(--moss);color:var(--life)}
+/* ── NOTIF PANEL ── */
+#notifPanel{display:none;position:fixed;top:54px;right:10px;width:290px;background:var(--cavern);border:1px solid var(--b3);border-radius:14px;padding:14px;z-index:200;box-shadow:0 16px 48px rgba(0,0,0,.7);animation:tIn .2s ease;max-height:65vh;overflow-y:auto}
+#notifPanel.on{display:block}
+.nitem{padding:11px;border-radius:9px;background:var(--stone);margin-bottom:7px;border-left:3px solid var(--life)}
+.nitem.gold{border-left-color:var(--gold)}.nitem.red{border-left-color:var(--red)}
+.nitem:last-child{margin-bottom:0}
+.ntime{font-size:9px;color:var(--dim);margin-top:3px}
+/* ── TABS ── */
+.tab{display:none}.tab.on{display:block;animation:tIn .28s ease}
+@keyframes tIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* ── PIN ── */
+.pdots{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.pd{width:12px;height:12px;border-radius:50%;border:2px solid var(--dim);transition:all .18s}
+.pd.on{background:var(--life);border-color:var(--life);box-shadow:0 0 8px rgba(93,219,74,0.5)}
+.ppad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pk{padding:14px;background:var(--stone);border:1px solid var(--b2);border-radius:11px;font-size:18px;font-weight:600;color:var(--text);cursor:pointer;text-align:center;font-family:var(--font-display);transition:all .13s;-webkit-tap-highlight-color:transparent;user-select:none}
+.pk:active{background:rgba(93,219,74,0.1);border-color:var(--b1);transform:scale(.93)}
+.pk.del{font-family:var(--font-body);font-size:14px}.pk.emp{background:transparent;border-color:transparent;cursor:default}
+/* ── GUEST BANNER ── */
+#guestBanner{display:none;background:linear-gradient(90deg,rgba(232,184,75,0.1),rgba(93,219,74,0.08));border-bottom:1px solid rgba(232,184,75,0.2);padding:8px 16px;text-align:center;font-size:11px;color:var(--gold)}
+#guestBanner.on{display:block}
+#guestBanner span{color:var(--text);font-weight:600;cursor:pointer;text-decoration:underline}
+/* ── ADS ── */
+.ad-slot{background:linear-gradient(135deg,var(--stone),var(--cavern));border:1px solid var(--b2);border-radius:12px;overflow:hidden;text-align:center;position:relative;min-height:60px;display:flex;align-items:center;justify-content:center}
+.ad-slot::before{content:'Advertisement';position:absolute;top:4px;left:8px;font-size:8px;color:var(--dim);letter-spacing:.8px;text-transform:uppercase}
+.ad-banner{width:100%;min-height:60px}
+.ad-rect{min-height:250px}
+/* ── WEATHER HERO ── */
+#wxHero{background:linear-gradient(150deg,var(--cavern) 0%,var(--stone) 60%,rgba(13,43,8,.6) 100%);border-radius:20px;padding:22px 20px;border:1px solid var(--b1);position:relative;overflow:hidden}
+#wxHero::after{content:'';position:absolute;top:-30px;right:-30px;width:150px;height:150px;background:radial-gradient(circle,rgba(93,219,74,0.08) 0%,transparent 68%);pointer-events:none}
+.tdisp{font-family:var(--font-display);font-size:78px;font-weight:700;line-height:1;color:var(--life-bright);letter-spacing:-3px;font-style:italic;text-shadow:0 0 40px rgba(93,219,74,0.25)}
+.wstat{background:rgba(255,255,255,.03);border:1px solid var(--b2);border-radius:10px;padding:9px 6px;text-align:center;flex:1;min-width:0}
+.wsv{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wsl{font-size:7px;color:var(--muted);margin-top:2px;letter-spacing:.4px;text-transform:uppercase}
+.sun-row{display:flex;gap:8px;margin-top:10px}
+.sun-s{background:rgba(255,255,255,.03);border:1px solid var(--b2);border-radius:9px;padding:8px 9px;flex:1;display:flex;align-items:center;gap:7px}
+.sun-v{font-size:12px;font-weight:700}.sun-l{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+.uv-bar{height:5px;border-radius:3px;background:linear-gradient(90deg,#4caf50,#8bc34a,#f5a623,#e74c3c,#9b59b6);position:relative;margin:5px 0 1px}
+.uv-pin{width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid var(--obsidian);position:absolute;top:50%;transform:translate(-50%,-50%);transition:left .4s cubic-bezier(.34,1.56,.64,1)}
+/* ── HOURLY ── */
+.hi{min-width:64px;background:var(--cavern);border:1px solid var(--b2);border-radius:12px;padding:10px 6px;text-align:center;flex-shrink:0;transition:all .18s}
+.hi.now{border-color:rgba(93,219,74,0.35);background:rgba(93,219,74,0.04)}
+/* ── DAILY ── */
+.dr{display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--b2);transition:background .13s}
+.dr:last-child{border-bottom:none}.dr:hover{background:rgba(255,255,255,.015)}
+/* ── CROP TAG ── */
+.ctag{display:inline-flex;align-items:center;background:rgba(93,219,74,0.08);border:1px solid rgba(93,219,74,0.2);color:var(--life);font-size:11px;font-weight:600;padding:4px 10px;border-radius:16px}
+/* ── PRICE CARD ── */
+.pcrd{background:var(--cavern);border:1px solid var(--b2);border-radius:14px;padding:15px 17px;display:flex;align-items:center;justify-content:space-between;transition:all .18s}
+.pcrd:hover{border-color:var(--b1);transform:translateY(-1px)}
+.pval{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--life);font-style:italic}
+/* ── TOOL CARD ── */
+.tc{background:var(--cavern);border:1px solid var(--b2);border-radius:16px;padding:20px;margin-bottom:12px}
+.th{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+.tico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tg{background:rgba(93,219,74,0.1)}.tb{background:rgba(56,163,200,0.12)}.ta{background:rgba(232,184,75,0.1)}.tc2{background:rgba(6,182,212,0.1)}
+.ttl{font-family:var(--font-display);font-size:16px;font-weight:700;font-style:italic}.tst{font-size:10px;color:var(--muted);margin-top:1px}
+/* ── RESULT BOXES ── */
+.rb{border-radius:12px;padding:16px;text-align:center;margin-top:12px;display:none}
+.rb.on{display:block;animation:tIn .28s ease}
+.rbg{background:rgba(93,219,74,0.04);border:1px solid rgba(93,219,74,0.15)}
+.rbb{background:rgba(56,163,200,0.04);border:1px solid rgba(56,163,200,0.15)}
+.rba{background:rgba(232,184,75,0.04);border:1px solid rgba(232,184,75,0.15)}
+.rbc{background:rgba(6,182,212,0.04);border:1px solid rgba(6,182,212,0.15)}
+.rn{font-family:var(--font-display);font-size:42px;font-weight:700;line-height:1;font-style:italic}
+.rng{color:var(--life)}.rnb{color:var(--rain)}.rna{color:var(--gold)}.rnc{color:#22d3ee}
+.ru{font-size:11px;color:var(--muted);margin-top:3px}.rd{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.5}
+/* ── PEST ── */
+.pa{border-radius:11px;padding:12px 14px;margin-bottom:8px;border:1px solid}
+.ph{background:rgba(232,69,60,.06);border-color:rgba(232,69,60,.24)}
+.pm{background:rgba(232,184,75,.06);border-color:rgba(232,184,75,.24)}
+.pl{background:rgba(93,219,74,.04);border-color:rgba(93,219,74,.14)}
+.pbg{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:2px 7px;border-radius:8px;display:inline-block;margin-bottom:4px}
+.bh{background:rgba(232,69,60,.18);color:var(--red)}.bm{background:rgba(232,184,75,.18);color:var(--gold)}.bl{background:rgba(93,219,74,.13);color:var(--life)}
+/* ── RAIN CHART ── */
+.rbw{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.rbt{width:100%;background:rgba(255,255,255,.04);border-radius:3px;height:54px;display:flex;align-items:flex-end;overflow:hidden}
+.rbb2{width:100%;background:linear-gradient(to top,var(--rain),rgba(56,163,200,.3));border-radius:3px 3px 0 0;transition:height .55s cubic-bezier(.34,1.56,.64,1)}
+.rdl{font-size:9px;color:var(--muted)}.rpct{font-size:10px;font-weight:600;color:var(--rain)}
+/* ── JOURNAL ── */
+.je{background:var(--stone);border:1px solid var(--b2);border-radius:12px;padding:14px;margin-bottom:8px;position:relative;transition:border-color .15s}
+.je:hover{border-color:var(--b3)}
+.jd{font-size:9px;color:var(--muted);margin-bottom:3px}
+.jt{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;padding:2px 7px;border-radius:7px;display:inline-block;margin-bottom:4px}
+.jtp{background:rgba(93,219,74,.12);color:var(--life)}.jth{background:rgba(232,184,75,.12);color:var(--gold)}.jte{background:rgba(232,69,60,.12);color:var(--red)}.jtn{background:rgba(155,109,255,.12);color:var(--violet)}
+.jtx{font-size:12px;color:var(--text);line-height:1.5}
+.jdel{position:absolute;top:11px;right:11px;background:none;border:none;color:var(--dim);cursor:pointer;font-size:14px;padding:4px;line-height:1;-webkit-tap-highlight-color:transparent;transition:color .15s}
+.jdel:hover{color:var(--red)}
+/* ── REMINDER ── */
+.reminder{display:flex;align-items:center;gap:10px;background:var(--gold-pale);border:1px solid rgba(232,184,75,.22);border-radius:11px;padding:11px 13px;margin-bottom:7px}
+/* ── CAL ── */
+.cmo{background:var(--cavern);border:1px solid var(--b2);border-radius:10px;padding:10px;transition:border-color .15s}
+.cmo.cur{border-color:rgba(93,219,74,.28);background:rgba(93,219,74,.03)}
+.cmn{font-size:10px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.cmo.cur .cmn{color:var(--life)}.cmc{font-size:11px;color:var(--text);line-height:1.4}
+/* ── TIPS ── */
+.tctag{padding:5px 12px;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b2);background:var(--stone);color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.tctag.on{background:rgba(93,219,74,0.08);border-color:rgba(93,219,74,0.28);color:var(--life)}
+.tip-item{display:flex;gap:13px;padding:14px;border-bottom:1px solid var(--b2);align-items:flex-start}
+.tip-item:last-child{border-bottom:none}
+/* ── TOGGLE ── */
+.etog{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--b2)}
+.etog:last-child{border-bottom:none}
+.ttrack{width:42px;height:24px;background:var(--stone);border:1px solid var(--b2);border-radius:12px;position:relative;cursor:pointer;transition:all .2s;flex-shrink:0}
+.ttrack.on{background:linear-gradient(135deg,var(--life),var(--life-dim));border-color:var(--life)}
+.tthumb{width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:transform .2s cubic-bezier(.34,1.56,.64,1);box-shadow:0 2px 4px rgba(0,0,0,.3)}
+.ttrack.on .tthumb{transform:translateX(18px)}
+/* ── HELP & FEEDBACK ── */
+.help-section{margin-bottom:20px}
+.faq-item{border-bottom:1px solid var(--b2);overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:14px 0;cursor:pointer;font-weight:600;font-size:13px;-webkit-tap-highlight-color:transparent;gap:10px}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:12px;color:var(--muted);line-height:1.7}
+.faq-a.open{max-height:200px;padding-bottom:14px}
+.faq-ico{font-size:16px;flex-shrink:0;transition:transform .3s}
+.faq-ico.open{transform:rotate(45deg)}
+/* ── INSTALL BANNER ── */
+#instBan{display:none;position:fixed;bottom:82px;left:12px;right:12px;background:linear-gradient(135deg,var(--stone),var(--life-deep));border:1px solid var(--b1);border-radius:14px;padding:12px 15px;z-index:90;align-items:center;gap:11px;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+#instBan.on{display:flex;animation:tIn .4s ease}
+/* ── UTILS ── */
+.skel{background:linear-gradient(90deg,var(--cavern) 25%,var(--stone) 50%,var(--cavern) 75%);background-size:200% 100%;animation:shim 1.4s infinite;border-radius:10px}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.scx{overflow-x:auto;display:flex;gap:9px;padding-bottom:3px;-ms-overflow-style:none;scrollbar-width:none}
+.scx::-webkit-scrollbar{display:none}
+.utog{display:flex;background:var(--stone);border:1px solid var(--b2);border-radius:8px;padding:2px;gap:2px}
+.ubtn{padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .18s;font-family:var(--font-body)}
+.ubtn.on{background:var(--life);color:#030a02}
+.hchip{display:inline-flex;align-items:center;gap:5px;background:var(--stone);border:1px solid var(--b2);border-radius:16px;padding:5px 10px;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .18s;-webkit-tap-highlight-color:transparent}
+.hchip:hover{border-color:var(--b3);color:var(--text)}
+.spin{width:16px;height:16px;border:2px solid rgba(3,10,2,.25);border-top-color:#030a02;border-radius:50%;animation:sp .55s linear infinite;display:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+.slbl{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.fl{display:flex}.aic{align-items:center}.jcb{justify-content:space-between}
+.g2{gap:8px}.g3{gap:12px}
+.mt2{margin-top:8px}.mt3{margin-top:12px}.mt4{margin-top:16px}
+.mb3{margin-bottom:12px}.mb4{margin-bottom:14px}
+.gr2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pp{padding:0 15px 16px;max-width:520px;margin:0 auto}
+.smsbox{background:var(--stone);border:1px solid var(--b2);border-radius:9px;padding:12px;font-size:11px;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--b2)}
+.cost-row:last-child{border-bottom:none}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
+@keyframes breathe{0%,100%{opacity:.6}50%{opacity:1}}
+</style>
 </head>
 <body>
 
-<div id="authModal" class="fixed inset-0 flex items-center justify-center bg-black/95 z-[2000]">
-    <div class="glass-card p-8 w-full max-w-sm mx-4">
-        <div class="text-center mb-6">
-            <h2 class="text-2xl font-black tracking-tighter">AGRIWEATHER <span class="text-[#70E000]">PRO+</span></h2>
-        </div>
-        <input id="username" class="w-full p-4 mb-4 rounded-xl bg-white/5 border border-white/10 text-white outline-none" placeholder="Username">
-        <button onclick="login()" class="w-full py-4 btn-primary rounded-xl">ACCESS ACCOUNT</button>
-    </div>
+<!-- OFFLINE BANNER -->
+<div id="offBan">⚡ OFFLINE — Showing Cached Data</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- NOTIFICATION PANEL -->
+<div id="notifPanel">
+  <div class="fl jcb aic" style="margin-bottom:11px">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:700;font-style:italic">Notifications</div>
+    <button onclick="clrNotifs()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;font-family:var(--font-body)">Clear all</button>
+  </div>
+  <div id="nList"><div style="text-align:center;padding:18px;color:var(--dim);font-size:12px">No notifications yet</div></div>
 </div>
 
-<header class="sticky top-0 z-10 bg-black/80 backdrop-blur-md border-b border-white/10 p-4 flex justify-between items-center">
-    <div class="font-black text-lg tracking-tighter">AGRIWEATHER <span class="text-[#70E000]">PRO+</span></div>
-    <div id="offlineTag" class="hidden bg-red-600 text-[10px] px-2 py-1 rounded font-bold">OFFLINE</div>
-</header>
+<!-- PWA INSTALL BANNER -->
+<div id="instBan">
+  <div style="font-size:22px">📲</div>
+  <div style="flex:1"><div style="font-weight:700;font-size:13px;margin-bottom:1px">Install AgriWeather Pro+</div><div style="font-size:10px;color:var(--muted)">Works offline after install</div></div>
+  <button class="btn btn-p btn-sm" onclick="doInstall()">Install</button>
+  <button onclick="dimissInst()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px">✕</button>
+</div>
 
-<main id="mainUI" class="hidden p-4 max-w-4xl mx-auto">
-    
-    <div id="tab-home" class="tab-content active space-y-6">
-        <div class="flex gap-2">
-            <input id="citySearch" type="text" placeholder="Enter City..." class="flex-1 bg-white/5 border border-white/10 p-3 rounded-xl outline-none">
-            <button onclick="searchCity()" class="btn-primary px-6 rounded-xl">GO</button>
-        </div>
+<!-- AUTH MODAL (Sign In / Register) -->
+<div id="authModal" onclick="closeModalOut(event)">
+  <div class="modal-sheet">
+    <div class="modal-pull"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
 
-        <div class="glass-card p-6 text-center border-b-4 border-[#70E000]">
-            <h1 id="cityName" class="text-2xl font-bold uppercase tracking-wide">--</h1>
-            <div id="currentTemp" class="text-6xl font-light my-2">--°C</div>
-            <p id="description" class="text-gray-400 capitalize">Syncing data...</p>
-        </div>
-
-        <div>
-            <h3 class="text-xs font-bold text-gray-500 uppercase mb-3">Next 24 Hours</h3>
-            <div id="hourlyRow" class="flex gap-3 overflow-x-auto no-scrollbar pb-2"></div>
-        </div>
-
-        <div class="glass-card divide-y divide-white/5">
-            <h3 class="p-4 text-xs font-bold text-gray-500 uppercase">7-Day Forecast</h3>
-            <div id="dailyRow"></div>
-        </div>
+    <!-- TABS -->
+    <div class="atabs">
+      <button class="atab on" id="atab-in" onclick="switchAtab('in')">Sign In</button>
+      <button class="atab" id="atab-up" onclick="switchAtab('up')">Register</button>
     </div>
 
-    <div id="tab-market" class="tab-content space-y-6">
-        <h2 class="text-xl font-bold">Commodity Prices</h2>
-        <div class="glass-card p-4 space-y-4" id="profitBody"></div>
+    <!-- SIGN IN PANEL -->
+    <div id="apanel-in">
+      <button class="soc" onclick="socialLogin('google')">
+        <div class="soc-ico soc-g"><svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
+        <span>Continue with Google</span>
+        <span style="margin-left:auto;font-size:10px;color:var(--muted)">Recommended</span>
+      </button>
+      <div style="margin-top:8px"></div>
+      <button class="soc" onclick="socialLogin('facebook')">
+        <div class="soc-ico soc-fb"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+        <span>Continue with Facebook</span>
+      </button>
+      <div style="margin-top:8px"></div>
+      <button class="soc" onclick="socialLogin('github')">
+        <div class="soc-ico soc-gh"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></div>
+        <span>Continue with GitHub</span>
+      </button>
+      <div class="sdiv">or use email</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div><label class="flbl">Name</label><input class="inp" id="li-name" type="text" placeholder="e.g. John Banda" autocomplete="name"></div>
+        <div><label class="flbl">Email (optional)</label><input class="inp" id="li-email" type="email" placeholder="you@example.com" inputmode="email"></div>
+        <button class="btn btn-p btn-f mt2" onclick="emailLogin()">Sign In →</button>
+        <button class="btn btn-g btn-f" onclick="guestLogin()" style="font-size:12px">Browse as Guest — no account needed</button>
+      </div>
     </div>
 
-    <div id="tab-tools" class="tab-content space-y-6">
-        <h2 class="text-xl font-bold">Precision Agriculture Tools</h2>
-        
-        <div class="glass-card p-6 space-y-4 border-l-4 border-[#70E000]">
-            <h3 class="font-bold text-lg flex items-center gap-2">🚜 Fertilizer Estimator</h3>
-            <div class="flex flex-col gap-3">
-                <label class="text-xs text-gray-400">Land Area (Hectares)</label>
-                <input type="number" id="landSize" placeholder="e.g. 2.5" step="0.1">
-                
-                <label class="text-xs text-gray-400">Crop Type</label>
-                <select id="cropType" class="bg-white/5 border border-white/10 p-3 rounded-lg text-white">
-                    <option value="120">Maize (High Yield)</option>
-                    <option value="80">Soya Beans</option>
-                    <option value="150">Rice</option>
-                    <option value="60">Legumes</option>
-                </select>
-                
-                <button onclick="calcFertilizer()" class="btn-primary py-3 rounded-lg mt-2">CALCULATE NEEDS</button>
-            </div>
-            
-            <div id="fertResult" class="hidden mt-4 p-4 bg-[#70E000]/10 rounded-lg border border-[#70E000]/30 text-center">
-                <div class="text-xs uppercase text-[#70E000] font-bold">Estimated Requirement</div>
-                <div id="fertBags" class="text-3xl font-black">0 Bags</div>
-                <div class="text-[10px] text-gray-400 mt-1">*Based on 50kg NPK bags</div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-            <div class="glass-card p-4 text-center opacity-50">
-                <div class="text-3xl mb-2">💧</div>
-                <div class="text-sm font-bold">Irrigation (Soon)</div>
-            </div>
-            <div class="glass-card p-4 text-center opacity-50">
-                <div class="text-3xl mb-2">🌱</div>
-                <div class="text-sm font-bold">Spacing (Soon)</div>
-            </div>
-        </div>
+    <!-- REGISTER PANEL -->
+    <div id="apanel-up" style="display:none">
+      <div style="margin-bottom:18px">
+        <p style="font-size:12px;color:var(--muted);line-height:1.7">Create a free account to save your farm journal, get personalised alerts, and receive weather reports by email.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div><label class="flbl">Full Name</label><input class="inp" id="reg-name" type="text" placeholder="e.g. Mary Phiri" autocomplete="name"></div>
+        <div><label class="flbl">Email Address</label><input class="inp" id="reg-email" type="email" placeholder="you@example.com" inputmode="email" autocomplete="email"></div>
+        <button class="btn btn-p btn-f mt2" onclick="doRegister()">Create Account →</button>
+      </div>
+      <p style="text-align:center;font-size:10px;color:var(--dim);margin-top:14px;line-height:1.6">Your data stays on this device. No spam — ever.</p>
     </div>
 
-</main>
+    <!-- PIN SETUP (shown after email login if new) -->
+    <div id="apanel-pin" style="display:none">
+      <div style="font-family:var(--font-display);font-size:18px;font-weight:700;font-style:italic;margin-bottom:3px">Secure your account</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Set a 4-digit PIN for quick access</div>
+      <div class="pdots" id="pd1"><div class="pd" id="d0"></div><div class="pd" id="d1"></div><div class="pd" id="d2"></div><div class="pd" id="d3"></div></div>
+      <div class="ppad" id="pp1"></div>
+      <button class="btn btn-g btn-f mt3" onclick="skipPin()" style="font-size:11px">Skip PIN</button>
+    </div>
 
-<nav class="fixed bottom-0 w-full bg-black/90 border-t border-white/10 py-3 flex justify-around items-center">
-    <button onclick="showTab('home')" class="nav-item active flex flex-col items-center" id="nav-home">
-        <span class="text-xl">🏠</span>
-        <span class="text-[10px]">Home</span>
-    </button>
-    <button onclick="showTab('market')" class="nav-item flex flex-col items-center" id="nav-market">
-        <span class="text-xl">📈</span>
-        <span class="text-[10px]">Market</span>
-    </button>
-    <button onclick="showTab('tools')" class="nav-item flex flex-col items-center" id="nav-tools">
-        <span class="text-xl">🚜</span>
-        <span class="text-[10px]">Tools</span>
-    </button>
-    <button onclick="logout()" class="flex flex-col items-center text-gray-500">
-        <span class="text-xl">👤</span>
-        <span class="text-[10px]">Logout</span>
-    </button>
+    <!-- PIN LOGIN -->
+    <div id="apanel-lpin" style="display:none">
+      <div id="lw" style="font-family:var(--font-display);font-size:18px;font-weight:700;font-style:italic;margin-bottom:3px"></div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:6px">Enter your PIN to continue</div>
+      <div class="pdots" id="pd2"><div class="pd" id="l0"></div><div class="pd" id="l1"></div><div class="pd" id="l2"></div><div class="pd" id="l3"></div></div>
+      <div class="ppad" id="pp2"></div>
+      <div class="fl g2 mt3">
+        <button class="btn btn-g btn-f" onclick="resetAcct()" style="font-size:11px">Reset</button>
+        <button class="btn btn-g btn-f" onclick="finAuth(true)" style="font-size:11px">Skip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ APP ═══════════════════ -->
+<div id="app">
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="logo">Agri<em>Weather</em> <span style="font-size:10px;font-family:var(--font-body);font-style:normal;color:var(--muted);font-weight:400">Pro+</span></div>
+  <div class="topbar-right">
+    <!-- Unit Toggle -->
+    <div class="utog"><button class="ubtn on" id="uc" onclick="setUnit('C')">°C</button><button class="ubtn" id="uf" onclick="setUnit('F')">°F</button></div>
+    <!-- Notification Bell -->
+    <button id="notifBell" onclick="togNotif()" title="Notifications">🔔<div class="badge"></div></button>
+    <!-- Auth CTA (guest) or User Pill (logged in) -->
+    <div id="topAuthCta">
+      <button class="tl-in" onclick="openModal('in')">Sign In</button>
+      <button class="tl-up" onclick="openModal('up')">Join Free</button>
+    </div>
+    <div id="userPill" onclick="goTab('account')">
+      <div class="user-av" id="uav">?</div>
+      <span id="uname-pill">You</span>
+    </div>
+    <!-- Online dot -->
+    <div id="sdot" style="width:7px;height:7px;border-radius:50%;background:var(--life);animation:breathe 2.5s ease-in-out infinite;flex-shrink:0"></div>
+  </div>
+</div>
+
+<!-- GUEST BANNER -->
+<div id="guestBanner">You're browsing as a guest. <span onclick="openModal('up')">Create a free account</span> to save your data &amp; get alerts.</div>
+
+<!-- OFFLINE BAR (position 2) -->
+<div id="offBan">⚡ OFFLINE — Showing Cached Data</div>
+
+<!-- TABS -->
+<div id="tab-home" class="tab on">
+<div class="pp" style="padding-top:13px">
+  <div class="fl g2 mb3">
+    <input id="csrch" class="inp" type="text" placeholder="Search any city…" style="flex:1">
+    <button class="btn btn-p" id="sbtn" onclick="doSearch()" style="padding:13px 17px;min-width:58px"><span id="slbl">Go</span><div class="spin" id="sspin"></div></button>
+  </div>
+  <div id="hrow" class="scx mb4" style="display:none"></div>
+
+  <!-- AD SLOT — Banner top of home -->
+  <div class="ad-slot ad-banner mb4" style="margin-bottom:14px">
+    <ins class="adsbygoogle ad-banner" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1234567890" data-ad-format="banner" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div id="wxHero" class="mb4">
+    <div class="fl jcb aic mb2">
+      <div><div id="cname" style="font-size:17px;font-weight:700">Detecting location…</div><div id="ccountry" style="font-size:10px;color:var(--muted);margin-top:1px"></div></div>
+      <div id="hico" style="font-size:42px;line-height:1"></div>
+    </div>
+    <div class="tdisp" id="ctemp">--°</div>
+    <div id="cdesc" style="font-size:12px;color:var(--muted);text-transform:capitalize;margin:3px 0 15px">Syncing data…</div>
+    <div class="fl g2" style="margin-bottom:9px">
+      <div class="wstat"><div class="wsv" id="whum">--%</div><div class="wsl">Humidity</div></div>
+      <div class="wstat"><div class="wsv" id="wwnd">--</div><div class="wsl">Wind</div></div>
+      <div class="wstat"><div class="wsv" id="wdir">--</div><div class="wsl">Direction</div></div>
+      <div class="wstat"><div class="wsv" id="wfel">--°</div><div class="wsl">Feels</div></div>
+      <div class="wstat"><div class="wsv" id="wran">--%</div><div class="wsl">Rain</div></div>
+    </div>
+    <div class="sun-row">
+      <div class="sun-s"><span style="font-size:16px">🌅</span><div><div class="sun-v" id="wsrise">--:--</div><div class="sun-l">Sunrise</div></div></div>
+      <div class="sun-s"><span style="font-size:16px">🌇</span><div><div class="sun-v" id="wsset">--:--</div><div class="sun-l">Sunset</div></div></div>
+      <div class="sun-s" style="flex:2"><span style="font-size:16px">☀️</span><div style="flex:1;padding:0 5px"><div class="sun-v" id="wuvlbl" style="font-size:11px">UV --</div><div class="uv-bar"><div class="uv-pin" id="uvpin" style="left:0%"></div></div><div style="font-size:8px;color:var(--muted)" id="wuvsub">--</div></div></div>
+    </div>
+  </div>
+
+  <div id="remCard" style="display:none;margin-bottom:14px"><div class="slbl">🌱 Planting Reminders</div><div id="remList"></div></div>
+
+  <div id="smsCard" class="card card-green mb4" style="display:none;padding:13px 15px">
+    <div class="fl jcb aic mb3"><div style="font-size:13px;font-weight:600">📨 Share Weather</div><button class="btn btn-o btn-sm" onclick="copySMS()" id="cpbtn">Copy</button></div>
+    <div id="smstxt" class="smsbox"></div>
+  </div>
+
+  <div id="advCard" class="card card-green mb4" style="display:none;padding:16px 18px">
+    <div class="fl jcb aic mb3"><div style="font-family:var(--font-display);font-size:16px;font-weight:700;font-style:italic">🌾 Crop Advisory</div><span style="font-size:9px;font-weight:700;letter-spacing:.9px;color:var(--life);background:rgba(93,219,74,.08);padding:3px 8px;border-radius:16px;border:1px solid rgba(93,219,74,.2)">LIVE INSIGHT</span></div>
+    <p id="advtxt" style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px"></p>
+    <div id="advact" style="font-size:12px;background:rgba(93,219,74,.04);border:1px solid rgba(93,219,74,.12);border-radius:9px;padding:9px 12px;margin-bottom:11px;line-height:1.6"></div>
+    <div class="fl g2" style="flex-wrap:wrap" id="advtags"></div>
+  </div>
+
+  <div id="pestDiv" class="mb4" style="display:none">
+    <div class="fl jcb aic mb3"><div class="slbl" style="margin-bottom:0">⚠️ Pest &amp; Disease Risk</div><span style="font-size:9px;color:var(--muted)">Current conditions</span></div>
+    <div id="pestList"></div>
+  </div>
+
+  <!-- AD SLOT — between sections -->
+  <div class="ad-slot ad-banner mb4">
+    <ins class="adsbygoogle ad-banner" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="2345678901" data-ad-format="banner" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="mb4"><div class="slbl">🌧️ 7-Day Rain Probability</div><div class="card" style="padding:13px 10px"><div id="rChart" class="fl g2" style="align-items:flex-end"></div></div></div>
+
+  <div class="mb4"><div class="slbl">Next 24 Hours</div><div class="scx" id="hrRow"><div class="skel" style="min-width:64px;height:90px;border-radius:12px"></div><div class="skel" style="min-width:64px;height:90px;border-radius:12px"></div><div class="skel" style="min-width:64px;height:90px;border-radius:12px"></div><div class="skel" style="min-width:64px;height:90px;border-radius:12px"></div></div></div>
+
+  <div class="mb4"><div class="slbl">7-Day Forecast</div><div class="card" style="overflow:hidden" id="dayCard"><div class="skel" style="height:46px;margin:10px;border-radius:9px"></div><div class="skel" style="height:46px;margin:10px;border-radius:9px"></div><div class="skel" style="height:46px;margin:10px;border-radius:9px"></div></div></div>
+</div>
+</div>
+
+<!-- MARKET TAB -->
+<div id="tab-market" class="tab">
+<div class="pp" style="padding-top:13px">
+  <div class="fl jcb aic mb4"><h2 style="font-family:var(--font-display);font-size:22px;font-style:italic">Market</h2><button class="btn btn-g btn-sm" onclick="mktLoaded=false;initMkt()">↻ Refresh</button></div>
+  <div class="card card-gold mb4" style="padding:14px 17px"><div class="fl aic g3"><div id="seaico" style="font-size:28px"></div><div><div style="font-size:10px;color:var(--gold);font-weight:700;letter-spacing:.9px;text-transform:uppercase;margin-bottom:2px">Current Season</div><div id="seanm" style="font-weight:700;font-size:15px"></div><div id="seaadv" style="font-size:11px;color:var(--muted);margin-top:1px"></div></div></div></div>
+  <div class="slbl">Commodity Prices — Malawi</div>
+  <div id="psrc" style="font-size:10px;color:var(--muted);margin-bottom:10px;padding:8px 12px;background:var(--cavern);border-radius:8px;border:1px solid var(--b2)">📊 World Bank RTFP · <span id="ptm"></span></div>
+  <div id="pcont" style="display:flex;flex-direction:column;gap:8px"><div class="skel" style="height:68px;border-radius:14px"></div><div class="skel" style="height:68px;border-radius:14px"></div><div class="skel" style="height:68px;border-radius:14px"></div><div class="skel" style="height:68px;border-radius:14px"></div></div>
+  <!-- AD inside market -->
+  <div class="ad-slot ad-banner mt4 mb4">
+    <ins class="adsbygoogle ad-banner" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="3456789012" data-ad-format="banner" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <div style="margin-top:8px"><div class="slbl">Seasonal Crop Calendar</div><div id="ccal" class="gr2" style="gap:8px"></div></div>
+</div>
+</div>
+
+<!-- TOOLS TAB -->
+<div id="tab-tools" class="tab">
+<div class="pp" style="padding-top:13px">
+  <h2 style="font-family:var(--font-display);font-size:22px;font-style:italic;margin-bottom:3px">Tools</h2>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px">Precision calculators for your farm</p>
+  <div class="tc"><div class="th"><div class="tico tg">🚜</div><div><div class="ttl">Fertilizer Estimator</div><div class="tst">50kg NPK bag calculator</div></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label class="flbl">Land Area (Hectares)</label><input type="number" inputmode="decimal" class="inp" id="lsz" placeholder="e.g. 2.5" step="0.1" min="0.1"></div>
+      <div><label class="flbl">Crop Type</label><select class="inp" id="ctyp"><option value="120,23">Maize (High Yield) — NPK 23:10:5</option><option value="80,20">Soya Beans — NPK 20:20:0</option><option value="150,25">Rice — NPK 25:12:6</option><option value="60,15">Legumes — NPK 15:15:15</option><option value="100,23">Groundnuts — NPK 23:21:0</option><option value="90,20">Cassava — NPK 20:10:20</option></select></div>
+      <div><label class="flbl">Soil Condition</label><select class="inp" id="soil"><option value="1.0">Good — Fertile</option><option value="1.2">Average — Slightly depleted</option><option value="1.5">Poor — Degraded / Sandy</option></select></div>
+      <button class="btn btn-p btn-f" onclick="cFert()">Calculate Needs</button>
+    </div>
+    <div class="rb rbg" id="fr"><div class="rn rng" id="fbags">0</div><div class="ru">50kg bags needed</div><div class="rd" id="fsched"></div><div class="rd" id="fcalc" style="font-size:10px;opacity:.5;margin-top:4px"></div></div>
+  </div>
+  <div class="tc"><div class="th"><div class="tico ta">💰</div><div><div class="ttl">Season Profit Calculator</div><div class="tst">Cost vs expected revenue</div></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="gr2"><div><label class="flbl">Seed Cost (MWK)</label><input type="number" inputmode="decimal" class="inp" id="cseed" placeholder="15000"></div><div><label class="flbl">Fertilizer (MWK)</label><input type="number" inputmode="decimal" class="inp" id="cfert" placeholder="30000"></div></div>
+      <div class="gr2"><div><label class="flbl">Labour (MWK)</label><input type="number" inputmode="decimal" class="inp" id="clab" placeholder="20000"></div><div><label class="flbl">Other Costs</label><input type="number" inputmode="decimal" class="inp" id="coth" placeholder="5000"></div></div>
+      <div class="gr2"><div><label class="flbl">Expected Yield (kg)</label><input type="number" inputmode="decimal" class="inp" id="ykg" placeholder="2000"></div><div><label class="flbl">Price per kg (MWK)</label><input type="number" inputmode="decimal" class="inp" id="pkg" placeholder="300"></div></div>
+      <button class="btn btn-gold btn-f" onclick="cProfit()">Calculate Profit</button>
+    </div>
+    <div class="rb rba" id="pr"><div style="font-size:10px;color:var(--muted);margin-bottom:6px">EXPECTED PROFIT</div><div class="rn" id="pval" style="font-size:32px">MWK 0</div><div id="proi" style="font-size:11px;color:var(--muted);margin-top:4px"></div><div style="margin-top:12px;text-align:left" id="pbdown"></div></div>
+  </div>
+  <div class="tc"><div class="th"><div class="tico tb">📏</div><div><div class="ttl">Plant Spacing Calculator</div><div class="tst">Seed holes &amp; seedlings</div></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label class="flbl">Land Area (Hectares)</label><input type="number" inputmode="decimal" class="inp" id="slnd" placeholder="e.g. 1.0" step="0.1"></div>
+      <div class="gr2"><div><label class="flbl">Row Spacing (cm)</label><input type="number" inputmode="numeric" class="inp" id="rspc" value="90"></div><div><label class="flbl">Plant Spacing (cm)</label><input type="number" inputmode="numeric" class="inp" id="pspc" value="30"></div></div>
+      <button class="btn btn-o btn-f" onclick="cSpacing()" style="border-color:rgba(56,163,200,.3);color:var(--rain)">Calculate Plants</button>
+    </div>
+    <div class="rb rbb" id="sr"><div class="rn rnb" id="scnt">0</div><div class="ru">seed holes / seedlings</div><div class="rd" id="sdtl"></div></div>
+  </div>
+  <div class="tc"><div class="th"><div class="tico tc2">💧</div><div><div class="ttl">Irrigation Calculator</div><div class="tst">Daily water requirements</div></div></div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label class="flbl">Land Area (Hectares)</label><input type="number" inputmode="decimal" class="inp" id="ilnd" placeholder="e.g. 1.5" step="0.1"></div>
+      <div><label class="flbl">Crop &amp; Growth Stage</label><select class="inp" id="icrop"><option value="4">Maize — Germination (4mm/day)</option><option value="6">Maize — Vegetative (6mm/day)</option><option value="8">Maize — Tasseling (8mm/day)</option><option value="5">Beans — Flowering (5mm/day)</option><option value="7">Rice — Active growth (7mm/day)</option><option value="3">Groundnuts — Establishment (3mm/day)</option></select></div>
+      <button class="btn btn-o btn-f" onclick="cIrrig()" style="border-color:rgba(6,182,212,.28);color:#22d3ee">Calculate Water Needs</button>
+    </div>
+    <div class="rb rbc" id="ir"><div class="rn rnc" id="ilitres">0</div><div class="ru">litres per day</div><div class="rd" id="idtl"></div></div>
+  </div>
+</div>
+</div>
+
+<!-- JOURNAL TAB -->
+<div id="tab-journal" class="tab">
+<div class="pp" style="padding-top:13px">
+  <div class="fl jcb aic mb4"><div><h2 style="font-family:var(--font-display);font-size:22px;font-style:italic;margin-bottom:2px">Farm Journal</h2><p style="font-size:11px;color:var(--muted)">Log planting, harvests &amp; expenses</p></div><button class="btn btn-p btn-sm" onclick="togJForm()">+ Add</button></div>
+  <div id="jform" class="card card-green" style="padding:17px;margin-bottom:13px;display:none">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label class="flbl">Entry Type</label><select class="inp" id="jtype"><option value="plant">🌱 Planting</option><option value="harvest">🌾 Harvest</option><option value="expense">💸 Expense</option><option value="note">📝 Note</option></select></div>
+      <div><label class="flbl">Details</label><textarea class="inp" id="jtxt" placeholder="e.g. Planted 2 bags DK8031 maize on 2ha. Good soil moisture." rows="3"></textarea></div>
+      <div class="gr2"><div><label class="flbl">Amount (MWK)</label><input type="number" inputmode="decimal" class="inp" id="jamt" placeholder="Optional"></div><div><label class="flbl">Crop</label><input type="text" class="inp" id="jcrop" placeholder="e.g. Maize"></div></div>
+      <div class="fl g2"><button class="btn btn-p" style="flex:1" onclick="saveJ()">Save Entry</button><button class="btn btn-g" onclick="togJForm()">Cancel</button></div>
+    </div>
+  </div>
+  <div id="jstats" class="gr2 mb4" style="gap:8px;display:none">
+    <div class="card" style="padding:14px;text-align:center"><div id="jsplt" style="font-family:var(--font-display);font-size:26px;font-weight:700;font-style:italic;color:var(--life)">0</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Plantings</div></div>
+    <div class="card" style="padding:14px;text-align:center"><div id="jsexp" style="font-family:var(--font-display);font-size:19px;font-weight:700;font-style:italic;color:var(--gold)">MWK 0</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Total Expenses</div></div>
+  </div>
+  <div id="jents"><div style="text-align:center;padding:34px 14px;color:var(--muted);font-size:13px">No journal entries yet.<br>Tap <strong>+ Add</strong> to log your first.</div></div>
+</div>
+</div>
+
+<!-- TIPS TAB -->
+<div id="tab-tips" class="tab">
+<div class="pp" style="padding-top:13px">
+  <h2 style="font-family:var(--font-display);font-size:22px;font-style:italic;margin-bottom:3px">Farming Tips</h2>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:13px">Evidence-based advice for Malawi smallholder farmers</p>
+  <div class="fl g2" style="flex-wrap:wrap;margin-bottom:13px" id="tcats"></div>
+  <div class="card" id="tipsCard" style="overflow:hidden"></div>
+  <!-- Ad in tips -->
+  <div class="ad-slot ad-banner mt4">
+    <ins class="adsbygoogle ad-banner" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="4567890123" data-ad-format="banner" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+</div>
+</div>
+
+<!-- HELP TAB -->
+<div id="tab-help" class="tab">
+<div class="pp" style="padding-top:13px">
+  <h2 style="font-family:var(--font-display);font-size:22px;font-style:italic;margin-bottom:3px">Help &amp; Feedback</h2>
+  <p style="font-size:11px;color:var(--muted);margin-bottom:18px">Get help or send us a message — we read every one</p>
+
+  <!-- FEEDBACK FORM -->
+  <div class="card card-green" style="padding:18px;margin-bottom:16px">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:700;font-style:italic;margin-bottom:3px">💬 Send Us a Message</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:15px">Your message goes directly to our team. We respond within 24 hours.</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div><label class="flbl">Type</label><select class="inp" id="fbtype"><option value="feedback">💡 General Feedback</option><option value="bug">🐛 Bug Report</option><option value="feature">✨ Feature Request</option><option value="help">❓ Help / Question</option></select></div>
+      <div><label class="flbl">Your Name</label><input class="inp" type="text" id="fbname" placeholder="e.g. John Banda"></div>
+      <div><label class="flbl">Your Email (for our reply)</label><input class="inp" type="email" inputmode="email" id="fbemail" placeholder="you@example.com"></div>
+      <div><label class="flbl">Message</label><textarea class="inp" id="fbmsg" rows="4" placeholder="Tell us what you think, what's not working, or what you'd like to see added…"></textarea></div>
+      <button class="btn btn-p btn-f" id="fbsend" onclick="sendFeedback()">📧 Send Message</button>
+    </div>
+    <div id="fbsuccess" style="display:none;margin-top:13px;background:rgba(93,219,74,0.07);border:1px solid rgba(93,219,74,0.25);border-radius:10px;padding:14px;text-align:center">
+      <div style="font-size:24px;margin-bottom:6px">✅</div>
+      <div style="font-weight:600;font-size:14px;margin-bottom:3px">Message sent!</div>
+      <div style="font-size:12px;color:var(--muted)">Thank you. We'll get back to you soon.</div>
+    </div>
+  </div>
+
+  <!-- AD in help -->
+  <div class="ad-slot ad-banner mb4">
+    <ins class="adsbygoogle ad-banner" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="5678901234" data-ad-format="banner" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- FAQ -->
+  <div class="help-section">
+    <div class="slbl" style="margin-bottom:13px">Frequently Asked Questions</div>
+    <div class="card" style="padding:0 16px;overflow:hidden">
+      <div id="faqList"></div>
+    </div>
+  </div>
+
+  <!-- CONTACT INFO -->
+  <div class="card" style="padding:16px;margin-top:16px;text-align:center">
+    <div style="font-size:24px;margin-bottom:8px">📬</div>
+    <div style="font-weight:600;font-size:13px;margin-bottom:4px">Direct Contact</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Prefer to email us directly?</div>
+    <a href="mailto:mlendo2006@gmail.com" style="color:var(--life);font-size:13px;font-weight:600;text-decoration:none">mlendo2006@gmail.com</a>
+    <div style="font-size:10px;color:var(--dim);margin-top:8px">AgriWeather Pro+ · Made for Malawi 🇲🇼</div>
+  </div>
+</div>
+</div>
+
+<!-- ACCOUNT TAB -->
+<div id="tab-account" class="tab">
+<div class="pp" style="padding-top:20px">
+  <h2 style="font-family:var(--font-display);font-size:22px;font-style:italic;margin-bottom:16px">Account</h2>
+  <!-- Not logged in card -->
+  <div id="accGuest" class="card" style="padding:20px;margin-bottom:14px;text-align:center">
+    <div style="font-size:40px;margin-bottom:10px">🌱</div>
+    <div style="font-weight:700;font-size:16px;margin-bottom:4px">You're browsing as a guest</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Create a free account to save your data, get weather alerts, and unlock all features.</div>
+    <div class="fl g2"><button class="btn btn-p btn-f" onclick="openModal('up')">Create Free Account</button><button class="btn btn-g btn-f" onclick="openModal('in')">Sign In</button></div>
+  </div>
+  <!-- Logged in card -->
+  <div id="accUser" style="display:none">
+    <div class="card" style="padding:18px;margin-bottom:12px">
+      <div class="fl aic g3">
+        <div id="avIco" style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,var(--life),var(--life-deep));display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 4px 16px rgba(93,219,74,.18)">🧑‍🌾</div>
+        <div><div id="acnm" style="font-weight:700;font-size:17px"></div><div id="acemail" style="font-size:11px;color:var(--muted);margin-top:2px"></div><div id="acprov" style="font-size:10px;color:var(--life);margin-top:3px;font-weight:600"></div></div>
+      </div>
+    </div>
+    <!-- Notification settings -->
+    <div class="card" style="padding:17px;margin-bottom:12px">
+      <div class="slbl" style="margin-bottom:14px">🔔 Alerts &amp; Notifications</div>
+      <div class="etog"><div><div style="font-size:13px;font-weight:500">Push Notifications</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Weather alerts &amp; pest warnings</div></div><div class="ttrack" id="pushTog" onclick="togPush()"><div class="tthumb"></div></div></div>
+      <div class="etog"><div><div style="font-size:13px;font-weight:500">Email Weather Reports</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Daily 7am weather summary</div></div><div class="ttrack" id="emailTog" onclick="togEmail()"><div class="tthumb"></div></div></div>
+      <div class="etog"><div><div style="font-size:13px;font-weight:500">Planting Reminders</div><div style="font-size:10px;color:var(--muted);margin-top:2px">Crop stage notifications</div></div><div class="ttrack" id="remTog" onclick="togRem()"><div class="tthumb"></div></div></div>
+      <div id="emailRow" style="display:none;margin-top:13px;padding-top:13px;border-top:1px solid var(--b2)">
+        <label class="flbl">Email for reports</label>
+        <div class="fl g2 mt2"><input type="email" inputmode="email" class="inp" id="notifEmail" placeholder="you@example.com" style="flex:1"><button class="btn btn-p btn-sm" onclick="saveEmailNotif()">Save</button></div>
+        <button class="btn btn-gold btn-f mt3" onclick="sendTestEmail()" style="font-size:12px">📧 Send Test Email</button>
+      </div>
+    </div>
+    <!-- Preferences -->
+    <div class="card" style="padding:17px;margin-bottom:12px">
+      <div class="slbl" style="margin-bottom:12px">Preferences</div>
+      <div class="fl jcb aic"><span style="font-size:13px">Temperature Unit</span><div class="utog"><button class="ubtn on" id="uc2" onclick="setUnit('C')">°C</button><button class="ubtn" id="uf2" onclick="setUnit('F')">°F</button></div></div>
+    </div>
+    <!-- Data -->
+    <div class="card" style="padding:17px;margin-bottom:12px">
+      <div class="slbl" style="margin-bottom:10px">Farm Data</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:12px" id="stinfo">Loading…</div>
+      <button class="btn btn-g btn-f btn-sm mb3" onclick="expJournal()" style="justify-content:flex-start">📤 Export Journal</button>
+      <button class="btn btn-g btn-f btn-sm" onclick="clrJournal()" style="border-color:rgba(232,69,60,.28);color:var(--red);justify-content:flex-start">🗑️ Clear Journal</button>
+    </div>
+    <button class="btn btn-red btn-f" onclick="doLogout()">Sign Out</button>
+  </div>
+</div>
+</div>
+
+</div><!-- /app -->
+
+<nav id="nav">
+  <button class="nb on" id="nb-home" onclick="goTab('home')"><span class="ni">🏠</span><span>Home</span></button>
+  <button class="nb" id="nb-market" onclick="goTab('market')"><span class="ni">📈</span><span>Market</span></button>
+  <button class="nb" id="nb-tools" onclick="goTab('tools')"><span class="ni">🚜</span><span>Tools</span></button>
+  <button class="nb" id="nb-journal" onclick="goTab('journal')"><span class="ni">📓</span><span>Journal</span></button>
+  <button class="nb" id="nb-tips" onclick="goTab('tips')"><span class="ni">💡</span><span>Tips</span></button>
+  <button class="nb" id="nb-help" onclick="goTab('help')"><span class="ni">💬</span><span>Help</span></button>
+  <button class="nb" id="nb-account" onclick="goTab('account')"><span class="ni">👤</span><span>Account</span></button>
 </nav>
 
 <script>
-const API_KEY = "5d73c7bcc743e425081a820c2dbfdb97";
+/* ════════════════════════ CONFIG ════════════════════════ */
+const AK="5d73c7bcc743e425081a820c2dbfdb97",CK="agri_wx7",HK="agri_h4",JK="agri_j5",NK="agri_n2";
+// EmailJS — set up free at emailjs.com then replace these:
+const EJS_PUB="YOUR_EMAILJS_PUBLIC_KEY";
+const EJS_SVC="service_agriweather";
+const EJS_FB="template_feedback";   // template for feedback/contact form
+const EJS_WX="template_weather";    // template for weather reports
+const OWNER_EMAIL="mlendo2006@gmail.com"; // YOUR email — all feedback goes here
+let unit='C',wxD=null,gLat=-13.2543,gLon=34.3015,pb='',lb='',dfi=null,curTZ=0;
+let isLoggedIn=false;
+let nS={push:false,email:false,rem:false,addr:''};
+const $=i=>document.getElementById(i);
+const fmt=n=>Number(n).toLocaleString();
+const dT=c=>unit==='C'?`${Math.round(c)}°C`:`${Math.round(c*9/5+32)}°F`;
+const DIR=['N','NE','E','SE','S','SW','W','NW'];
+const degDir=d=>DIR[Math.round(d/45)%8];
 
-// TAB NAVIGATION
-function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.getElementById('tab-' + tabId).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active', 'text-[#70E000]'));
-    document.getElementById('nav-' + tabId).classList.add('active', 'text-[#70E000]');
+/* ══ TOAST ══ */
+let tTimer;
+function toast(m,d=3200){clearTimeout(tTimer);const e=$('toast');e.textContent=m;e.classList.add('on');tTimer=setTimeout(()=>e.classList.remove('on'),d)}
+
+/* ══ UNIT ══ */
+function setUnit(u){unit=u;['c','f'].forEach(x=>{$('u'+x)?.classList.toggle('on',x===u);$('u'+x+'2')?.classList.toggle('on',x===u)});localStorage.setItem('agri_unit',u);if(wxD)renderWx(wxD)}
+
+/* ══ ONLINE ══ */
+function updOnline(){const on=navigator.onLine;$('offBan').classList.toggle('on',!on);const d=$('sdot');if(d)d.style.background=on?'var(--life)':'var(--red)'}
+window.addEventListener('online',updOnline);window.addEventListener('offline',updOnline);
+
+/* ══ SW ══ */
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+/* ══ PWA ══ */
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dfi=e;const s=JSON.parse(localStorage.getItem('agri_s')||'{}');if(!s.id)setTimeout(()=>$('instBan').classList.add('on'),5000)});
+function doInstall(){if(!dfi)return;dfi.prompt();dfi.userChoice.then(()=>{dfi=null;dimissInst()})}
+function dimissInst(){$('instBan').classList.remove('on');const s=JSON.parse(localStorage.getItem('agri_s')||'{}');s.id=1;localStorage.setItem('agri_s',JSON.stringify(s))}
+
+/* ══ AUTH MODAL ══ */
+function openModal(tab){
+  const m=$('authModal');m.classList.add('on');m.style.display='flex';
+  switchAtab(tab);
+  // Pre-fill name if known
+  const nm=localStorage.getItem('agri_name');
+  if(nm){$('li-name').value=nm;$('reg-name').value=nm}
+  const pin=localStorage.getItem('agri_pin');
+  if(nm&&pin){showAPanel('apanel-lpin');$('lw').textContent='Welcome back, '+nm+' 👋';lb='';buildPad('pp2','lD','lDel()')}
+}
+function closeModal(){const m=$('authModal');m.classList.remove('on');setTimeout(()=>m.style.display='none',220)}
+function closeModalOut(e){if(e.target===$('authModal'))closeModal()}
+function switchAtab(t){
+  ['in','up'].forEach(x=>{$('atab-'+x).classList.toggle('on',x===t);$('apanel-'+x).style.display=x===t?'block':'none'});
+  $('apanel-pin').style.display='none';$('apanel-lpin').style.display='none';
+}
+function showAPanel(id){['apanel-in','apanel-up','apanel-pin','apanel-lpin'].forEach(p=>$(p).style.display='none');$(id).style.display='block'}
+
+/* ══ SOCIAL LOGIN ══ */
+function socialLogin(p){
+  const names={google:'Google User',facebook:'Facebook User',github:'GitHub User'};
+  const saved=localStorage.getItem('agri_name');
+  const name=saved||names[p];
+  localStorage.setItem('agri_name',name);
+  localStorage.setItem('agri_provider','via '+p.charAt(0).toUpperCase()+p.slice(1));
+  localStorage.setItem('agri_pin','');
+  finAuth();closeModal();
 }
 
-// FERTILIZER LOGIC
-function calcFertilizer() {
-    const area = parseFloat(document.getElementById('landSize').value);
-    const nitrogenNeeded = parseFloat(document.getElementById('cropType').value);
-    
-    if(!area || area <= 0) return alert("Please enter a valid land size");
+/* ══ EMAIL LOGIN ══ */
+function emailLogin(){
+  const name=($('li-name').value||'').trim(),email=($('li-email').value||'').trim();
+  if(!name)return toast('⚠️ Enter your name');
+  localStorage.setItem('agri_name',name);
+  if(email){localStorage.setItem('agri_email',email);localStorage.setItem('agri_provider','Email account')}
+  else localStorage.setItem('agri_provider','Local account');
+  const pin=localStorage.getItem('agri_pin');
+  if(pin){showAPanel('apanel-lpin');$('lw').textContent='Welcome back, '+name+' 👋';lb='';buildPad('pp2','lD','lDel()')}
+  else{showAPanel('apanel-pin');pb='';buildPad('pp1','pD','pDel()')}
+}
+function doRegister(){
+  const name=($('reg-name').value||'').trim(),email=($('reg-email').value||'').trim();
+  if(!name)return toast('⚠️ Enter your name');
+  if(!email||!email.includes('@'))return toast('⚠️ Enter a valid email');
+  localStorage.setItem('agri_name',name);localStorage.setItem('agri_email',email);
+  localStorage.setItem('agri_provider','Email account');localStorage.setItem('agri_pin','');
+  showAPanel('apanel-pin');pb='';buildPad('pp1','pD','pDel()');
+}
+function guestLogin(){finAuth(true);closeModal()}
 
-    // Calculation: (Area * N required) / (23% N in a standard NPK 23:10:5 bag) / 50kg per bag
-    const totalBags = Math.ceil((area * nitrogenNeeded) / (0.23 * 50));
-    
-    const resultDiv = document.getElementById('fertResult');
-    resultDiv.classList.remove('hidden');
-    document.getElementById('fertBags').innerText = totalBags + " Bags";
+/* ══ PIN ══ */
+function buildPad(cid,od,odel){$(cid).innerHTML=['1','2','3','4','5','6','7','8','9','','0','⌫'].map(k=>{if(k==='')return'<div class="pk emp"></div>';if(k==='⌫')return`<div class="pk del" onclick="${odel}">⌫</div>`;return`<div class="pk" onclick="${od}('${k}')">${k}</div>`}).join('')}
+function udots(p,n){for(let i=0;i<4;i++)$(p+i)?.classList.toggle('on',i<n)}
+function pD(d){if(pb.length>=4)return;pb+=d;udots('d',pb.length);if(pb.length===4)setTimeout(()=>{localStorage.setItem('agri_pin',pb);finAuth();closeModal()},280)}
+function pDel(){pb=pb.slice(0,-1);udots('d',pb.length)}
+function skipPin(){localStorage.setItem('agri_pin','');finAuth();closeModal()}
+function lD(d){if(lb.length>=4)return;lb+=d;udots('l',lb.length);if(lb.length===4)setTimeout(()=>{if(lb===localStorage.getItem('agri_pin')){finAuth();closeModal()}else{lb='';udots('l',0);toast('❌ Wrong PIN')}},280)}
+function lDel(){lb=lb.slice(0,-1);udots('l',lb.length)}
+function resetAcct(){if(!confirm('Reset? All data cleared.'))return;[CK,HK,JK,NK,'agri_name','agri_pin','agri_unit','agri_s','agri_email','agri_provider','agri_ns'].forEach(k=>localStorage.removeItem(k));location.reload()}
+function doLogout(){if(!confirm('Sign out?'))return;isLoggedIn=false;localStorage.removeItem('agri_name');localStorage.removeItem('agri_provider');updAuthUI();toast('Signed out')}
+
+/* ══ FINISH AUTH ══ */
+function finAuth(guest=false){
+  isLoggedIn=!guest&&!!localStorage.getItem('agri_name');
+  unit=localStorage.getItem('agri_unit')||'C';setUnit(unit);
+  const ns=JSON.parse(localStorage.getItem('agri_ns')||'{}');
+  nS={...nS,...ns};
+  updAuthUI();updOnline();loadHist();renderTips('All');renderJ();startWx();loadNotifs();buildFAQ();
+  if(nS.push)reqPush();
+}
+function updAuthUI(){
+  const name=localStorage.getItem('agri_name');
+  const loggedIn=isLoggedIn&&!!name;
+  // Top bar
+  $('topAuthCta').style.display=loggedIn?'none':'flex';
+  $('userPill').style.display=loggedIn?'flex':'none';
+  if(loggedIn){$('uname-pill').textContent=name.split(' ')[0];$('uav').textContent=name[0].toUpperCase()}
+  // Guest banner
+  $('guestBanner').classList.toggle('on',!loggedIn);
+  // Account tab
+  $('accGuest').style.display=loggedIn?'none':'block';
+  $('accUser').style.display=loggedIn?'block':'none';
+  if(loggedIn){
+    $('acnm').textContent=name;
+    $('acemail').textContent=localStorage.getItem('agri_email')||'No email saved';
+    $('acprov').textContent=localStorage.getItem('agri_provider')||'Local account';
+  }
+  // Unit toggles
+  ['c','f'].forEach(x=>{$('u'+x)?.classList.toggle('on',x===unit);$('u'+x+'2')?.classList.toggle('on',x===unit)});
+  updToggles();
 }
 
-// AUTH & WEATHER (Same as previous version)
-function login() {
-    const u = document.getElementById("username").value;
-    if(!u) return alert("Enter Username");
-    localStorage.setItem("agri_session", u);
-    startApp();
+/* ══ SESSION CHECK ══ */
+function chkSession(){
+  const name=localStorage.getItem('agri_name');
+  if(name){isLoggedIn=true}
+  finAuth(!name);
 }
 
-function logout() {
-    localStorage.removeItem("agri_session");
-    location.reload();
+/* ══ TABS ══ */
+function goTab(id){
+  $('notifPanel').classList.remove('on');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  $('tab-'+id)?.classList.add('on');$('nb-'+id)?.classList.add('on');
+  if(id==='market')initMkt();if(id==='account')updStInfo();
+}
+document.addEventListener('click',e=>{if(!e.target.closest('#notifPanel')&&!e.target.closest('#notifBell'))$('notifPanel').classList.remove('on')});
+
+/* ══ NOTIFICATIONS ══ */
+function togNotif(){$('notifPanel').classList.toggle('on')}
+function getNotifs(){return JSON.parse(localStorage.getItem(NK)||'[]')}
+function addNotif(msg,type='green'){
+  const ns=getNotifs();
+  ns.unshift({msg,type,time:new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'})});
+  localStorage.setItem(NK,JSON.stringify(ns.slice(0,20)));loadNotifs();
+  if(nS.push&&'Notification'in window&&Notification.permission==='granted')new Notification('AgriWeather Pro+',{body:msg,icon:'./icon-192.png'});
+}
+function loadNotifs(){const ns=getNotifs();const bell=$('notifBell');bell.classList.toggle('has-n',ns.length>0);$('nList').innerHTML=ns.length?ns.map(n=>`<div class="nitem ${n.type}"><div style="font-size:12px;line-height:1.5">${n.msg}</div><div class="ntime">${n.time}</div></div>`).join(''):`<div style="text-align:center;padding:18px;color:var(--dim);font-size:12px">No notifications yet</div>`}
+function clrNotifs(){localStorage.removeItem(NK);loadNotifs()}
+async function reqPush(){if(!('Notification'in window))return toast('⚠️ Push not supported');const p=await Notification.requestPermission();if(p==='granted'){toast('🔔 Push enabled!');addNotif('Push notifications activated 🔔')}else{toast('Permission denied');nS.push=false;saveNS();updToggles()}}
+function togPush(){nS.push=!nS.push;saveNS();updToggles();if(nS.push)reqPush();else toast('Push disabled')}
+function togEmail(){nS.email=!nS.email;saveNS();updToggles();if(nS.email)toast('Enter email below');else toast('Email reports off')}
+function togRem(){nS.rem=!nS.rem;saveNS();updToggles();toast(nS.rem?'🌱 Reminders enabled':'Reminders off')}
+function saveNS(){localStorage.setItem('agri_ns',JSON.stringify(nS))}
+function updToggles(){['push','email','rem'].forEach(k=>{const m={push:'pushTog',email:'emailTog',rem:'remTog'};const t=$(m[k]);if(t)t.classList.toggle('on',!!nS[k])});if($('emailRow'))$('emailRow').style.display=nS.email?'block':'none';if(nS.addr&&$('notifEmail'))$('notifEmail').value=nS.addr}
+function saveEmailNotif(){const em=($('notifEmail').value||'').trim();if(!em||!em.includes('@'))return toast('⚠️ Enter a valid email');nS.addr=em;saveNS();localStorage.setItem('agri_email',em);if($('acemail'))$('acemail').textContent=em;toast('✅ Email saved')}
+async function sendTestEmail(){
+  const email=nS.addr||localStorage.getItem('agri_email');
+  if(!email)return toast('⚠️ Save your email first');
+  try{
+    emailjs.init(EJS_PUB);
+    await emailjs.send(EJS_SVC,EJS_WX,{to_email:email,to_name:localStorage.getItem('agri_name')||'Farmer',city:$('cname')?.textContent||'Lilongwe',temperature:$('ctemp')?.textContent||'--',description:$('cdesc')?.textContent||'--',date:new Date().toLocaleDateString('en',{weekday:'long',day:'numeric',month:'long'}),app_name:'AgriWeather Pro+'});
+    toast('📧 Test email sent to '+email);addNotif('Weather email sent to '+email,'gold');
+  }catch{toast('⚠️ Set up EmailJS first — see below for guide');addNotif('EmailJS setup needed to send real emails — visit emailjs.com (free)','gold')}
 }
 
-function startApp() {
-    document.getElementById("authModal").classList.add("hidden");
-    document.getElementById("mainUI").classList.remove("hidden");
-    navigator.geolocation.getCurrentPosition(
-        pos => fetchWeatherData(pos.coords.latitude, pos.coords.longitude),
-        () => fetchWeatherData(null, null, "Lilongwe")
-    );
+/* ══ FEEDBACK FORM ══ */
+async function sendFeedback(){
+  const type=$('fbtype').value,name=($('fbname').value||'').trim(),
+    email=($('fbemail').value||'').trim(),msg=($('fbmsg').value||'').trim();
+  if(!name)return toast('⚠️ Enter your name');
+  if(!msg)return toast('⚠️ Enter a message');
+  const btn=$('fbsend');btn.textContent='Sending…';btn.disabled=true;
+  try{
+    emailjs.init(EJS_PUB);
+    await emailjs.send(EJS_SVC,EJS_FB,{
+      to_email:OWNER_EMAIL,   // always goes to mlendo2006@gmail.com
+      from_name:name,from_email:email||'(no email)',
+      message_type:type,message:msg,
+      reply_to:email||OWNER_EMAIL,
+      app:'AgriWeather Pro+'
+    });
+    $('fbsuccess').style.display='block';
+    $('fbname').value='';$('fbemail').value='';$('fbmsg').value='';
+    toast('✅ Message sent!');
+  }catch{
+    // EmailJS not configured — mailto fallback
+    const sub=encodeURIComponent(`[AgriWeather Pro+] ${type} from ${name}`);
+    const body=encodeURIComponent(`Type: ${type}\nFrom: ${name} (${email||'no email'})\n\n${msg}`);
+    window.location.href=`mailto:${OWNER_EMAIL}?subject=${sub}&body=${body}`;
+    toast('Opening email app…');
+  }finally{btn.textContent='📧 Send Message';btn.disabled=false}
 }
 
-async function searchCity() {
-    const city = document.getElementById("citySearch").value.trim();
-    if(city) fetchWeatherData(null, null, city);
+/* ══ FAQ ══ */
+const FAQS=[
+  {q:'How does the weather work?',a:'AgriWeather Pro+ uses the OpenWeatherMap API to fetch real-time weather and 5-day forecasts based on your GPS location or the city you search.'},
+  {q:'Does it work offline?',a:'Yes! After your first visit, weather data is cached on your device. Install the app to your home screen for the best offline experience.'},
+  {q:'Is my data stored online?',a:'No. All your journal entries, settings, and preferences are stored only on your device using local storage. Nothing is uploaded to any server.'},
+  {q:'How do I install the app?',a:'On Android, tap the "Install" banner or use your browser menu → "Add to Home Screen". On iPhone, tap Share → "Add to Home Screen".'},
+  {q:'Can I use this without signing in?',a:'Absolutely! You can use all features as a guest. Signing in just lets you get personalised alerts and saves your name across sessions.'},
+  {q:'How do I get weather email reports?',a:'Go to Account → enable "Email Weather Reports" → save your email address → tap "Send Test Email". Requires EmailJS setup (free).'},
+  {q:'The prices seem estimated — why?',a:'Market prices come from the World Bank RTFP dataset. If the live data can\'t be fetched (network issue), estimated Malawi prices are shown as a fallback.'},
+  {q:'How do I send feedback?',a:'Use the Help tab → "Send Us a Message" form. Your message goes directly to our team at mlendo2006@gmail.com.'},
+];
+function buildFAQ(){
+  $('faqList').innerHTML=FAQS.map((f,i)=>`<div class="faq-item"><div class="faq-q" onclick="togFaq(${i})"><span>${f.q}</span><span class="faq-ico" id="fq-ico-${i}">+</span></div><div class="faq-a" id="fq-a-${i}">${f.a}</div></div>`).join('');
+}
+function togFaq(i){
+  const a=$(`fq-a-${i}`),ico=$(`fq-ico-${i}`);
+  const open=a.classList.toggle('open');
+  ico.classList.toggle('open',open);
 }
 
-async function fetchWeatherData(lat, lon, city = "") {
-    let url = city 
-        ? `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
-        : `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
-
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-        renderUI(data);
-    } catch (err) { console.error(err); }
+/* ══ WEATHER ══ */
+function startWx(){navigator.geolocation.getCurrentPosition(p=>{gLat=p.coords.latitude;gLon=p.coords.longitude;fetchWx(null,gLat,gLon)},()=>{fetchWx('Lilongwe')})}
+function doSearch(){const c=($('csrch').value||'').trim();if(!c)return toast('⚠️ Enter a city name');$('csrch').value='';setSL(true);fetchWx(c)}
+function setSL(on){$('slbl').style.display=on?'none':'inline';$('sspin').style.display=on?'block':'none'}
+async function fetchWx(city,la,lo){
+  const url=city?`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&units=metric&appid=${AK}`:`https://api.openweathermap.org/data/2.5/forecast?lat=${la}&lon=${lo}&units=metric&appid=${AK}`;
+  try{const r=await fetch(url);setSL(false);if(!r.ok){const e=await r.json();toast('❌ '+(e.message||'City not found'));return}const d=await r.json();gLat=d.city.coord?.lat||gLat;gLon=d.city.coord?.lon||gLon;curTZ=d.city.timezone||0;wxD=d;localStorage.setItem(CK,JSON.stringify({data:d,ts:Date.now()}));if(city)addHist(city);renderWx(d)}
+  catch{setSL(false);const c=localStorage.getItem(CK);if(c){toast('📦 Showing cached data');renderWx(JSON.parse(c).data)}else toast('❌ No data. Check connection.')}
+}
+const EMJ={thunderstorm:'⛈️',drizzle:'🌦️',rain:'🌧️',snow:'❄️',mist:'🌫️',smoke:'🌫️',haze:'🌫️',fog:'🌫️',dust:'🌪️',clear:'☀️',clouds:'⛅'};
+function renderWx(data){
+  const c=data.list[0],m=c.weather[0].main.toLowerCase(),temp=c.main.temp;
+  $('cname').textContent=data.city.name;$('ccountry').textContent=data.city.country||'';
+  $('ctemp').textContent=dT(temp);$('cdesc').textContent=c.weather[0].description;
+  $('hico').textContent=EMJ[m]||'🌤️';$('whum').textContent=c.main.humidity+'%';
+  $('wwnd').textContent=(c.wind?.speed||0).toFixed(1)+' m/s';
+  $('wdir').textContent=c.wind?.deg!=null?degDir(c.wind.deg):'--';
+  $('wfel').textContent=dT(c.main.feels_like);$('wran').textContent=Math.round((c.pop||0)*100)+'%';
+  const tz=curTZ,sr=new Date((data.city.sunrise+tz)*1000),ss=new Date((data.city.sunset+tz)*1000);
+  const tf=d=>`${d.getUTCHours().toString().padStart(2,'0')}:${d.getUTCMinutes().toString().padStart(2,'0')}`;
+  $('wsrise').textContent=tf(sr);$('wsset').textContent=tf(ss);
+  const clouds=c.clouds?.all||0,hr=new Date().getHours();
+  let uv=0;if(hr>=6&&hr<=18){const mf=1-Math.abs(hr-12)/7;uv=Math.round(mf*(11-clouds*.1))}
+  uv=Math.max(0,Math.min(11,uv));
+  const uvL=['Low','Low','Low','Moderate','Moderate','Moderate','High','High','Very High','Very High','Extreme','Extreme'];
+  $('wuvlbl').textContent=`UV ${uvL[uv]}`;$('wuvsub').textContent=`Index ${uv}`;$('uvpin').style.left=(uv/11*100)+'%';
+  if(uv>=7)addNotif(`☀️ High UV (${uv}) in ${data.city.name} — protect yourself outdoors`,'gold');
+  const rainPop=Math.round((c.pop||0)*100);
+  if(rainPop>=70)addNotif(`🌧️ ${rainPop}% rain chance today in ${data.city.name} — plan accordingly`);
+  $('hrRow').innerHTML=data.list.slice(0,8).map((it,i)=>{const hr2=new Date(it.dt*1000).getHours();const lbl=hr2===0?'Mid':hr2===12?'Noon':`${hr2%12||12}${hr2<12?'am':'pm'}`;const rain=Math.round((it.pop||0)*100);return`<div class="hi ${i===0?'now':''}"><div style="font-size:9px;color:var(--muted);margin-bottom:4px">${i===0?'Now':lbl}</div><img src="https://openweathermap.org/img/wn/${it.weather[0].icon}.png" style="width:28px;margin:0 auto 4px;display:block" loading="lazy"><div style="font-size:12px;font-weight:700;color:${i===0?'var(--life)':'var(--text)'}">${dT(it.main.temp)}</div>${rain>15?`<div style="font-size:9px;color:var(--rain);margin-top:1px">💧${rain}%</div>`:''}</div>`}).join('');
+  const byD={};data.list.forEach(it=>{const k=new Date(it.dt*1000).toDateString();if(!byD[k])byD[k]=[];byD[k].push(it)});
+  $('dayCard').innerHTML=Object.entries(byD).slice(0,7).map(([ds,its])=>{const ts=its.map(i=>i.main.temp),mx=Math.max(...ts),mn=Math.min(...ts);const mid=its[Math.floor(its.length/2)];const pop=Math.round(Math.max(...its.map(i=>i.pop||0))*100);const isTdy=new Date(ds).toDateString()===new Date().toDateString();const lbl=isTdy?'Today':new Date(ds).toLocaleDateString('en',{weekday:'short',month:'short',day:'numeric'});return`<div class="dr"><div style="width:82px;font-size:12px;font-weight:${isTdy?700:500};color:${isTdy?'var(--life)':'var(--text)'}">${lbl}</div><img src="https://openweathermap.org/img/wn/${mid.weather[0].icon}.png" style="width:26px;margin:0 9px" loading="lazy"><div style="flex:1;font-size:9px;color:var(--muted);text-transform:uppercase">${mid.weather[0].main}</div>${pop>10?`<div style="font-size:10px;color:var(--rain);margin-right:8px">💧${pop}%</div>`:''}<div style="font-size:12px;font-weight:600">${dT(mx)} <span style="color:var(--muted);font-weight:400">${dT(mn)}</span></div></div>`}).join('');
+  renderAdv(temp,c.main.humidity,data.list.slice(0,8),m);
+  renderPests(temp,c.main.humidity,m);
+  renderRainChart(data);renderSMS(data);checkReminders();
 }
 
-function renderUI(data) {
-    const current = data.list[0];
-    document.getElementById("cityName").innerText = data.city.name;
-    document.getElementById("currentTemp").innerText = Math.round(current.main.temp) + "°C";
-    document.getElementById("description").innerText = current.weather[0].description;
-
-    document.getElementById("hourlyRow").innerHTML = data.list.slice(0, 8).map(item => `
-        <div class="min-w-[80px] glass-card p-3 text-center border-t-2 border-[#70E000]">
-            <div class="text-[10px] text-gray-400">${new Date(item.dt*1000).getHours()}:00</div>
-            <img src="https://openweathermap.org/img/wn/${item.weather[0].icon}.png" class="mx-auto w-8">
-            <div class="font-bold text-[#70E000]">${Math.round(item.main.temp)}°</div>
-        </div>
-    `).join('');
-
-    let dailyHtml = "";
-    for(let i=0; i < data.list.length; i+=8) {
-        const d = data.list[i];
-        dailyHtml += `<div class="flex items-center p-4">
-            <div class="w-16 text-sm font-bold">${new Date(d.dt*1000).toLocaleDateString('en',{weekday:'short'})}</div>
-            <img src="https://openweathermap.org/img/wn/${d.weather[0].icon}.png" class="w-8 mx-4">
-            <div class="flex-1 text-xs text-gray-400 uppercase">${d.weather[0].main}</div>
-            <div class="font-bold">${Math.round(d.main.temp)}°C</div>
-        </div>`;
-    }
-    document.getElementById("dailyRow").innerHTML = dailyHtml;
-    renderMarket();
+/* ══ ADVISORY ══ */
+function renderAdv(temp,hum,nh,wm){
+  const mr=Math.max(...nh.map(h=>(h.pop||0)*100)),r24=mr>40;
+  let crops=[],adv='',act='';
+  if(temp<15){crops=['🌾 Wheat','🫛 Peas','🥬 Cabbage','🧅 Onion'];adv=`Cool (${Math.round(temp)}°C), ${hum}% humidity. Cool nights slow germination.`;act=r24?'🌧️ Rain expected — check drainage.':'☀️ Dry — irrigate moderately in morning.'}
+  else if(temp<22){crops=['🌽 Maize','🫘 Soybeans','🍅 Tomatoes','🫘 Beans'];adv=`Ideal temps (${Math.round(temp)}°C) for germination and growth.`;act=r24?'🌧️ Rain coming — ideal time to plant.':'💧 Check moisture 3cm below surface.'}
+  else if(temp<30){crops=['🌽 Maize','🥜 Groundnuts','🌾 Rice','🍠 Cassava'];adv=`Warm (${Math.round(temp)}°C). ${hum>70?'High humidity — watch for fungal disease.':'Good conditions for warm-season staples.'}`;act=r24?'🌧️ Rain in 24hrs — apply top-dress fertilizer now.':'💧 Irrigate 6–8am to cut evaporation by ~30%.'}
+  else{crops=['🍠 Cassava','🌾 Sorghum','🌾 Millet','🥜 Groundnuts'];adv=`High heat (${Math.round(temp)}°C) — drought-tolerant varieties only.`;act='⚠️ Irrigate morning or evening only. Mulch soil to retain moisture.'}
+  $('advtxt').textContent=adv;$('advact').textContent=act;
+  $('advtags').innerHTML=crops.map(c=>`<span class="ctag">${c}</span>`).join('');
+  $('advCard').style.display='block';
 }
 
-function renderMarket() {
-    const trends = [
-        {name: "Maize", price: "850 MWK", status: "UP", color: "#70E000"},
-        {name: "Soya", price: "1,100 MWK", status: "DOWN", color: "#ff4d4d"}
-    ];
-    document.getElementById("profitBody").innerHTML = trends.map(t => `
-        <div class="flex items-center justify-between">
-            <div><div class="font-bold">${t.name}</div><div class="text-[10px]" style="color:${t.color}">${t.status}</div></div>
-            <div class="bg-[#70E000] text-black px-3 py-1 rounded font-black text-xs">${t.price}</div>
-        </div>
-    `).join('');
+/* ══ PESTS ══ */
+function renderPests(temp,hum,wm){
+  const a=[];
+  if(hum>80&&temp>20)a.push({l:'high',i:'🍄',n:'Gray Leaf Spot / Downy Mildew',r:'HIGH',t:'High humidity + warmth = prime fungal conditions. Inspect maize leaves for grey lesions. Apply fungicide early.'});
+  if(hum>75&&temp>25)a.push({l:'high',i:'🦟',n:'Fall Armyworm',r:'HIGH',t:'Peak Fall Armyworm risk. Check maize whorls for frass at dawn. Apply Coragen or neem oil if found.'});
+  if(temp>28&&hum<50)a.push({l:'med',i:'🕷️',n:'Spider Mites',r:'MEDIUM',t:'Hot dry conditions favour spider mites. Look for yellowing + fine webbing under leaves.'});
+  if(wm==='rain'||wm==='drizzle')a.push({l:'med',i:'🐌',n:'Slugs & Snails',r:'MEDIUM',t:'Wet conditions increase slug activity. Check seedlings at night. Use ash rings around young plants.'});
+  if(temp>15&&temp<25&&hum>60)a.push({l:'med',i:'🐛',n:'Aphid Activity',r:'MEDIUM',t:'Cool-moderate humid conditions favour aphids. Check under leaves. Spray neem oil.'});
+  if(!a.length)a.push({l:'low',i:'✅',n:'No Major Threats Detected',r:'LOW',t:'Current conditions not favourable for major pest outbreaks. Continue regular field scouting.'});
+  a.filter(x=>x.l==='high').forEach(x=>addNotif(`⚠️ ${x.r} pest risk: ${x.n}`,'red'));
+  const lc={high:'ph',med:'pm',low:'pl'},bc={HIGH:'bh',MEDIUM:'bm',LOW:'bl'};
+  $('pestList').innerHTML=a.map(x=>`<div class="pa ${lc[x.l]}"><div class="pbg ${bc[x.r]}">${x.r} RISK</div><div style="font-weight:700;font-size:12px;margin-bottom:3px">${x.i} ${x.n}</div><div style="font-size:11px;color:var(--muted);line-height:1.6">${x.t}</div></div>`).join('');
+  $('pestDiv').style.display='block';
 }
 
-window.onload = () => { if(localStorage.getItem("agri_session")) startApp(); };
+/* ══ RAIN CHART ══ */
+function renderRainChart(data){
+  const byD={};data.list.forEach(it=>{const k=new Date(it.dt*1000).toDateString();if(!byD[k])byD[k]=[];byD[k].push(it.pop||0)});
+  $('rChart').innerHTML=Object.entries(byD).slice(0,7).map(([ds,ps])=>{const mp=Math.round(Math.max(...ps)*100);const h=Math.max(2,mp*0.52);const lbl=new Date(ds).toDateString()===new Date().toDateString()?'Today':new Date(ds).toLocaleDateString('en',{weekday:'short'});return`<div class="rbw"><div class="rpct">${mp}%</div><div class="rbt"><div class="rbb2" style="height:${h}px"></div></div><div class="rdl">${lbl}</div></div>`}).join('');
+}
+
+/* ══ SMS SHARE ══ */
+function renderSMS(data){
+  const c=data.list[0];const byD={};data.list.forEach(it=>{const k=new Date(it.dt*1000).toDateString();if(!byD[k])byD[k]=[];byD[k].push(it)});
+  const r3=Object.entries(byD).slice(0,3).map(([ds,its])=>{const p=Math.round(Math.max(...its.map(i=>i.pop||0))*100);return`${new Date(ds).toLocaleDateString('en',{weekday:'short'})}:${p}%`}).join(' | ');
+  const txt=`AgriWeather Pro+\n📍 ${data.city.name}, ${data.city.country||''}\n🌡️ ${dT(c.main.temp)} — ${c.weather[0].description}\n💧 Humidity: ${c.main.humidity}%\n💨 Wind: ${(c.wind?.speed||0).toFixed(1)}m/s ${c.wind?.deg!=null?degDir(c.wind.deg):''}\n🌅 Sunrise: ${$('wsrise').textContent} | Sunset: ${$('wsset').textContent}\n\n🌧️ Rain (3 days): ${r3}\n\nAgriWeather Pro+ 🌱`;
+  $('smstxt').textContent=txt;$('smsCard').style.display='block';
+}
+function copySMS(){const t=($('smstxt').textContent||'');if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast('✅ Copied!'))}else{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('✅ Copied!')}$('cpbtn').textContent='Copied ✓';setTimeout(()=>$('cpbtn').textContent='Copy',2000)}
+
+/* ══ HISTORY ══ */
+function addHist(c){let h=JSON.parse(localStorage.getItem(HK)||'[]');h=[c,...h.filter(x=>x.toLowerCase()!==c.toLowerCase())].slice(0,5);localStorage.setItem(HK,JSON.stringify(h));loadHist()}
+function loadHist(){const h=JSON.parse(localStorage.getItem(HK)||'[]');const row=$('hrow');if(!h.length){row.style.display='none';return}row.style.display='flex';row.innerHTML=`<span style="font-size:10px;color:var(--muted);align-self:center;flex-shrink:0">Recent:</span>`+h.map(c=>`<div class="hchip" onclick="fetchWx('${c}')">🕐 ${c}</div>`).join('')}
+
+/* ══ MARKET ══ */
+let mktLoaded=false;
+async function initMkt(){
+  if(mktLoaded)return;mktLoaded=true;
+  const seas={Summer:{i:'☀️',a:'Hot & rainy — plant maize, rice, soybean.'},Winter:{i:'🌬️',a:'Dry & cool — harvest, dry grains, prepare land.'},Spring:{i:'🌿',a:'Warming — prepare seedbeds, begin planting.'},Autumn:{i:'🍂',a:'Harvest season — store in hermetic bags.'}};
+  const mo=new Date().getMonth(),iS=gLat<0;
+  const sm=[[5,6,7,'Winter'],[8,9,10,'Spring'],[11,0,1,'Summer'],[2,3,4,'Autumn']];
+  const nm=[[5,6,7,'Summer'],[8,9,10,'Autumn'],[11,0,1,'Winter'],[2,3,4,'Spring']];
+  let sea='Summer';for(const[a,b,c,n]of(iS?sm:nm)){if([a,b,c].includes(mo)){sea=n;break}}
+  $('seaico').textContent=seas[sea].i;$('seanm').textContent=sea;$('seaadv').textContent=seas[sea].a;$('ptm').textContent=new Date().toLocaleTimeString();
+  let prices=await fetchRTFP();const fb=!prices;if(!prices)prices=fbPrices();
+  const tI={up:'▲',down:'▼',neutral:'▬'},tC={up:'var(--life)',down:'var(--red)',neutral:'var(--muted)'};
+  $('pcont').innerHTML=prices.map(p=>`<div class="pcrd"><div><div style="font-weight:700;font-size:14px;margin-bottom:2px">${p.crop}</div><div style="font-size:11px;color:${tC[p.trend]}">${tI[p.trend]} ${p.trend==='up'?'Rising':p.trend==='down'?'Falling':'Stable'}</div>${fb?'<div style="font-size:9px;color:var(--muted)">Estimated</div>':''}</div><div style="text-align:right"><div class="pval">${p.price}</div><div style="font-size:10px;color:var(--muted)">${p.currency}</div></div></div>`).join('');
+  if(fb)$('psrc').textContent='⚠️ Live data unavailable — estimated prices';
+  const mths=["January","February","March","April","May","June","July","August","September","October","November","December"],cm={"January":"🌽 Maize, 🫘 Soybean","February":"🥜 Groundnuts, Tobacco","March":"🌾 Sorghum, Millet","April":"🫘 Beans, Maize (late)","May":"🚜 Harvesting","June":"🌾 Harvest & Dry","July":"🌍 Land Preparation","August":"💧 Irrigation Crops","September":"🍠 Sweet Potatoes, Veg","October":"🌿 Cassava, Cotton","November":"🌽 Maize (early), 🌾 Rice","December":"🌾 Rice, Tobacco"};
+  const curMo=new Date().getMonth();$('ccal').innerHTML=mths.map((m,i)=>`<div class="cmo ${i===curMo?'cur':''}"><div class="cmn">${m}${i===curMo?' ← Now':''}</div><div class="cmc">${cm[m]}</div></div>`).join('');
+}
+async function fetchRTFP(){try{const r=await fetch('https://microdata.worldbank.org/index.php/catalog/6171/download/MWI_RTFP_mkt_2007_2025-06-16.csv');if(!r.ok)throw 0;const t=await r.text(),rows=t.trim().split('\n'),hdr=rows[0].split(',');const iI=hdr.indexOf('item_name'),iD=hdr.indexOf('date'),iP=hdr.indexOf('value_lcu'),iC=hdr.indexOf('currency');let ld='';rows.slice(1).forEach(r=>{const c=r.split(',');if((c[iD]||'')>ld)ld=c[iD]});const tgt=['maize','rice','soya','groundnuts'],grp={};rows.slice(1).map(r=>r.split(',')).forEach(c=>{const k=(c[iI]||'').toLowerCase();if(c[iD]?.startsWith(ld)&&tgt.includes(k)){grp[k]=grp[k]||[];grp[k].push({price:+c[iP],currency:c[iC]})}});const res=Object.entries(grp).map(([crop,arr])=>({crop:crop[0].toUpperCase()+crop.slice(1),price:Math.round(arr.reduce((s,v)=>s+v.price,0)/arr.length),currency:arr[0].currency||'MWK/kg',trend:'neutral'}));return res.length?res:null}catch{return null}}
+function fbPrices(){return[{crop:'Maize',price:'300',currency:'MWK/kg',trend:'up'},{crop:'Rice',price:'600',currency:'MWK/kg',trend:'neutral'},{crop:'Soya',price:'800',currency:'MWK/kg',trend:'down'},{crop:'Groundnuts',price:'1,000',currency:'MWK/kg',trend:'up'}]}
+
+/* ══ TOOLS ══ */
+function cFert(){const a=parseFloat($('lsz').value),[n,np]=$('ctyp').value.split(',').map(Number),sf=parseFloat($('soil').value);if(!a||a<=0)return toast('⚠️ Enter a valid land area');const tot=Math.ceil((a*n*sf)/((np/100)*50)),h=Math.ceil(tot/2);$('fr').classList.add('on');$('fbags').textContent=tot;$('fsched').innerHTML=`📅 Schedule:<br>• At planting: <strong>${h} bags</strong><br>• Top-dress (4–6 wks): <strong>${tot-h} bags</strong>`;$('fcalc').textContent=`${a}ha × ${n}kg N × ${sf} ÷ ${np}% N ÷ 50kg`}
+function cProfit(){const s=parseFloat($('cseed').value)||0,f=parseFloat($('cfert').value)||0,l=parseFloat($('clab').value)||0,o=parseFloat($('coth').value)||0,y=parseFloat($('ykg').value)||0,p=parseFloat($('pkg').value)||0;const tc=s+f+l+o,rev=y*p,profit=rev-tc,roi=tc>0?((profit/tc)*100).toFixed(0):0;$('pr').classList.add('on');$('pval').textContent=`MWK ${fmt(profit)}`;$('pval').style.color=profit>=0?'var(--life)':'var(--red)';$('proi').textContent=profit>=0?`ROI: ${roi}% — every MWK 100 spent returns MWK ${(100+Number(roi)).toFixed(0)}`:`Loss: MWK ${fmt(Math.abs(profit))} over budget`;$('pbdown').innerHTML=`<div class="cost-row"><span style="font-size:11px;color:var(--muted)">Total Costs</span><span style="font-weight:700;color:var(--red)">MWK ${fmt(tc)}</span></div><div class="cost-row"><span style="font-size:11px;color:var(--muted)">Expected Revenue</span><span style="font-weight:700;color:var(--life)">MWK ${fmt(rev)}</span></div><div class="cost-row" style="border-bottom:none"><span style="font-size:11px;font-weight:700">Net Profit</span><span style="font-weight:700;color:${profit>=0?'var(--life)':'var(--red)'}">MWK ${fmt(profit)}</span></div>`}
+function cSpacing(){const a=parseFloat($('slnd').value),rs=parseFloat($('rspc').value),ps=parseFloat($('pspc').value);if(!a||a<=0)return toast('⚠️ Enter a valid area');const tot=Math.round((a*10000)/((rs/100)*(ps/100)));$('sr').classList.add('on');$('scnt').textContent=tot.toLocaleString();$('sdtl').textContent=`${a}ha at ${rs}cm × ${ps}cm = ${tot.toLocaleString()} plants`}
+function cIrrig(){const a=parseFloat($('ilnd').value),mm=parseFloat($('icrop').value);if(!a||a<=0)return toast('⚠️ Enter a valid area');const L=a*10000*mm,dr=Math.ceil(L/200);$('ir').classList.add('on');$('ilitres').textContent=L.toLocaleString();$('idtl').textContent=`≈ ${dr.toLocaleString()} × 200L drums/day\nIrrigate 6–8am to reduce evaporation ~30%.`}
+
+/* ══ JOURNAL ══ */
+function getJ(){return JSON.parse(localStorage.getItem(JK)||'[]')}
+function setJ(e){localStorage.setItem(JK,JSON.stringify(e))}
+function togJForm(){const f=$('jform');f.style.display=f.style.display==='none'?'block':'none';if(f.style.display==='block')$('jtxt').focus()}
+function saveJ(){const type=$('jtype').value,text=($('jtxt').value||'').trim(),amt=$('jamt').value,crop=($('jcrop').value||'').trim();if(!text)return toast('⚠️ Enter some details');const e=getJ();e.unshift({id:Date.now(),type,text,amount:amt||null,crop:crop||null,date:new Date().toLocaleDateString('en',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'})});setJ(e);$('jtxt').value='';$('jamt').value='';$('jcrop').value='';togJForm();renderJ();toast('✅ Entry saved');checkReminders();if(type==='plant'&&nS.rem)addNotif(`🌱 Planting logged${crop?' — '+crop:''} — reminders active`)}
+function delJ(id){if(!confirm('Delete entry?'))return;setJ(getJ().filter(e=>e.id!==id));renderJ();checkReminders()}
+const jTL={plant:'🌱 Planting',harvest:'🌾 Harvest',expense:'💸 Expense',note:'📝 Note'},jTB={plant:'jtp',harvest:'jth',expense:'jte',note:'jtn'};
+function renderJ(){const e=getJ();if(e.length)$('jstats').style.display='grid';const pl=e.filter(x=>x.type==='plant').length,te=e.filter(x=>x.type==='expense').reduce((s,x)=>s+(parseFloat(x.amount)||0),0);$('jsplt').textContent=pl;$('jsexp').textContent='MWK '+fmt(te);if(!e.length){$('jents').innerHTML=`<div style="text-align:center;padding:34px 14px;color:var(--muted);font-size:13px">No journal entries yet.<br>Tap <strong>+ Add</strong> to log your first.</div>`;return}$('jents').innerHTML=e.map(x=>`<div class="je"><button class="jdel" onclick="delJ(${x.id})">✕</button><div class="jd">${x.date}</div><div class="jt ${jTB[x.type]}">${jTL[x.type]}</div>${x.crop?`<div style="font-size:10px;color:var(--life);font-weight:600;margin-bottom:3px">Crop: ${x.crop}</div>`:''}<div class="jtx">${x.text}</div>${x.amount?`<div style="font-size:12px;font-weight:700;color:var(--gold);margin-top:4px">MWK ${fmt(x.amount)}</div>`:''}</div>`).join('')}
+function expJournal(){const e=getJ();if(!e.length)return toast('No entries to export');const t='AGRIWEATHER PRO+ — FARM JOURNAL\n'+'='.repeat(36)+'\n\n'+e.map(x=>`[${x.date}] ${jTL[x.type].toUpperCase()}\n${x.crop?'Crop: '+x.crop+'\n':''}${x.text}${x.amount?'\nAmount: MWK '+fmt(x.amount):''}`).join('\n\n---\n\n');const b=new Blob([t],{type:'text/plain'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='farm-journal.txt';a.click();URL.revokeObjectURL(u);toast('📤 Exported')}
+function clrJournal(){if(!confirm('Clear ALL journal entries?'))return;setJ([]);renderJ();checkReminders();toast('Journal cleared')}
+
+/* ══ REMINDERS ══ */
+function checkReminders(){
+  const entries=getJ().filter(e=>e.type==='plant');
+  if(!entries.length){$('remCard').style.display='none';return}
+  const now=Date.now();
+  const rems=entries.slice(0,3).map(e=>{const days=Math.round((now-e.id)/(1000*60*60*24));const crop=e.crop||'your crop';let msg='',icon='🌱';if(days<=3){msg=`${crop} planted ${days}d ago — check germination`;icon='🌱'}else if(days<=14){msg=`${crop} (${days}d) — early weeding &amp; pest watch`;icon='🌿'}else if(days<=30){msg=`${crop} (${days}d) — fertilizer top-dressing due`;icon='🌾'}else if(days<=60){msg=`${crop} (${days}d) — inspect for disease`;icon='🔍'}else{msg=`${crop} (${days}d) — approaching harvest stage`;icon='🌾'}return`<div class="reminder"><div style="font-size:20px">${icon}</div><div><div style="font-size:12px;font-weight:600;margin-bottom:1px">${msg}</div><div style="font-size:9px;color:var(--muted)">Planted: ${e.date}</div></div></div>`});
+  $('remList').innerHTML=rems.join('');$('remCard').style.display='block';
+}
+
+/* ══ STORAGE INFO ══ */
+function updStInfo(){const ks=[CK,HK,JK];const b=ks.reduce((s,k)=>{const v=localStorage.getItem(k);return s+(v?new Blob([v]).size:0)},0);$('stinfo').textContent=`${getJ().length} journal entries · ~${(b/1024).toFixed(1)}KB on device`}
+
+/* ══ TIPS ══ */
+const TIPS=[
+  {icon:'🌅',cat:'Water',title:'Water Early or Late',text:'Water at 6–8am or after 5pm — cuts evaporation by ~30% and prevents leaf scorch.'},
+  {icon:'💧',cat:'Water',title:'Drip Irrigation',text:'Drip irrigation reduces water use by up to 50% vs flood irrigation while improving yields.'},
+  {icon:'🔄',cat:'Soil',title:'Rotate Crops Every Season',text:'Rotate maize → beans → groundnuts to restore nitrogen and break pest/disease cycles.'},
+  {icon:'🪱',cat:'Soil',title:'Add Organic Matter',text:'Compost and manure improve water retention, soil structure, and feed beneficial microorganisms.'},
+  {icon:'🧪',cat:'Soil',title:'Test Soil Before Planting',text:'A soil test reveals pH and nutrients. Over-fertilizing wastes money and acidifies soil.'},
+  {icon:'🌱',cat:'Planting',title:'Choose Certified Varieties',text:'Use certified drought-tolerant seeds suited to your district. Ask extension officers for recommendations.'},
+  {icon:'📐',cat:'Planting',title:'Correct Plant Spacing',text:'90cm × 30cm for maize maximises nutrients per plant. Use the Tools tab to calculate exactly.'},
+  {icon:'⏰',cat:'Planting',title:'Time Planting with Rain',text:'Plant 1–3 days before expected rainfall for excellent germination and reduced irrigation needs.'},
+  {icon:'🧹',cat:'Pest Control',title:'Keep Fields Clean',text:'Remove weeds and debris weekly — they harbour pests and diseases that spread rapidly.'},
+  {icon:'🐞',cat:'Pest Control',title:'Natural Control First',text:'Use neem oil and beneficial insects before chemicals. Protects soil health and cuts input costs.'},
+  {icon:'🐛',cat:'Pest Control',title:'Scout at Dawn',text:'Most pests (armyworm, caterpillars) are active at night. Check crops at dawn for damage signs.'},
+  {icon:'📦',cat:'Post-Harvest',title:'Dry Grain Properly',text:'Dry to below 13% moisture. Hermetic bags or metal silos prevent aflatoxin and weevil damage.'},
+  {icon:'🏪',cat:'Post-Harvest',title:'Grade Before Selling',text:'Sorted, clean grain fetches 15–25% higher market prices than mixed-grade produce.'},
+  {icon:'📈',cat:'Market',title:'Time Your Sales',text:'Prices are lowest right after harvest. Safe storage of 2–3 months can double your selling price.'},
+];
+const TIP_CATS=['All',...new Set(TIPS.map(t=>t.cat))];
+function renderTips(filter='All'){
+  $('tcats').innerHTML=TIP_CATS.map(c=>`<div class="tctag ${c===filter?'on':''}" onclick="renderTips('${c}')">${c}</div>`).join('');
+  const shown=filter==='All'?TIPS:TIPS.filter(t=>t.cat===filter);
+  $('tipsCard').innerHTML=shown.map(t=>`<div class="tip-item"><div style="font-size:22px;flex-shrink:0;margin-top:2px">${t.icon}</div><div><div style="font-size:9px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--life);margin-bottom:2px">${t.cat}</div><div style="font-weight:600;font-size:13px;margin-bottom:3px">${t.title}</div><div style="font-size:12px;color:var(--muted);line-height:1.6">${t.text}</div></div></div>`).join('');
+}
+
+/* ══ BOOT ══ */
+document.addEventListener('DOMContentLoaded',()=>{
+  chkSession();
+  $('csrch').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});
+});
 </script>
 </body>
 </html>

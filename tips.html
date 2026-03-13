@@ -1,64 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Farming Tips</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    li {
-      margin-bottom: 10px;
-    }
-
-    a {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Tips | AgriWeather Pro+</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #7cfc00; --bg: #080f09; --surface: #0f1a10;
+            --surface2: #162118; --border2: rgba(255,255,255,0.06);
+            --text: #e8f5e9; --muted: #6b8f6e;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px 16px 40px; max-width: 540px; margin: 0 auto; }
+        .back { display: inline-flex; align-items: center; gap: 8px; color: var(--green); text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 28px; padding: 10px 16px; background: rgba(124,252,0,0.06); border: 1px solid rgba(124,252,0,0.2); border-radius: 12px; transition: background 0.2s; }
+        .back:hover { background: rgba(124,252,0,0.12); }
+        h1 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; margin-bottom: 6px; }
+        h1 span { color: var(--green); }
+        .sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+        .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin: 24px 0 12px; }
+        .card { background: var(--surface); border: 1px solid var(--border2); border-radius: 18px; overflow: hidden; margin-bottom: 8px; }
+        .tip { display: flex; gap: 16px; padding: 18px; border-bottom: 1px solid var(--border2); align-items: flex-start; }
+        .tip:last-child { border-bottom: none; }
+        .tip-icon { font-size: 26px; flex-shrink: 0; }
+        .tip-cat { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
+        .tip-title { font-weight: 700; font-size: 15px; margin-bottom: 5px; }
+        .tip-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+        footer { text-align: center; margin-top: 40px; font-size: 11px; color: var(--muted); }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <a href="index.html">← Back to Weather</a>
-    <h1>🧑‍🌾 Farming Tips</h1>
-    <ul>
-      <li>💧 Water your crops early in the morning or late in the evening to reduce evaporation.</li>
-      <li>🌿 Rotate crops each season to maintain soil fertility and reduce pests.</li>
-      <li>🪱 Use compost and organic fertilizers to enrich your soil.</li>
-      <li>🧪 Test your soil before planting to understand nutrient needs.</li>
-      <li>🌾 Choose crops suitable for your climate and soil type.</li>
-      <li>🧹 Keep your field clean to reduce weed growth and diseases.</li>
-      <li>🐞 Encourage beneficial insects like ladybugs for natural pest control.</li>
-      <li>📅 Follow local weather reports to plan irrigation and planting schedules.</li>
-    </ul>
-  </div>
+    <a href="index.html" class="back">← Back to Dashboard</a>
+    <h1>Farming <span>Tips</span></h1>
+    <p class="sub">Evidence-based advice for smallholder farmers in Malawi</p>
+
+    <div class="section-label">💧 Water Management</div>
+    <div class="card">
+        <div class="tip"><div class="tip-icon">🌅</div><div><div class="tip-cat">Water</div><div class="tip-title">Water Early or Late</div><div class="tip-body">Water crops at 6–8am or after 5pm to reduce evaporation by up to 30% and prevent leaf scorch from midday heat.</div></div></div>
+        <div class="tip"><div class="tip-icon">💧</div><div><div class="tip-cat">Water</div><div class="tip-title">Drip Irrigation Saves Water</div><div class="tip-body">Drip irrigation delivers water directly to the roots, reducing usage by up to 50% compared to flood irrigation while improving yields.</div></div></div>
+    </div>
+
+    <div class="section-label">🌱 Soil Health</div>
+    <div class="card">
+        <div class="tip"><div class="tip-icon">🔄</div><div><div class="tip-cat">Soil</div><div class="tip-title">Rotate Crops Every Season</div><div class="tip-body">Rotate maize → beans → groundnuts to restore soil nitrogen, break pest cycles, and maintain long-term productivity.</div></div></div>
+        <div class="tip"><div class="tip-icon">🪱</div><div><div class="tip-cat">Soil</div><div class="tip-title">Add Organic Matter</div><div class="tip-body">Compost, crop residues, and animal manure enrich soil structure and feed the beneficial microorganisms that boost crop yields.</div></div></div>
+        <div class="tip"><div class="tip-icon">🧪</div><div><div class="tip-cat">Soil</div><div class="tip-title">Test Your Soil First</div><div class="tip-body">A soil test reveals pH and nutrient levels before you spend money on fertilizer. Over-application wastes money and acidifies the soil.</div></div></div>
+    </div>
+
+    <div class="section-label">🌾 Planting</div>
+    <div class="card">
+        <div class="tip"><div class="tip-icon">🌱</div><div><div class="tip-cat">Planting</div><div class="tip-title">Choose the Right Variety</div><div class="tip-body">Use certified, drought-tolerant or disease-resistant seeds suited to your region. Local extension officers can recommend the best options for your district.</div></div></div>
+        <div class="tip"><div class="tip-icon">📐</div><div><div class="tip-cat">Planting</div><div class="tip-title">Correct Plant Spacing</div><div class="tip-body">Proper spacing (90cm × 30cm for maize) maximises light, air, and nutrient access per plant. Use the Tools tab in AgriWeather Pro+ to calculate exact numbers.</div></div></div>
+        <div class="tip"><div class="tip-icon">⏰</div><div><div class="tip-cat">Planting</div><div class="tip-title">Time Planting with Rain</div><div class="tip-body">Plant 1–3 days before expected rainfall to ensure excellent germination and reduce irrigation needs by up to 40%.</div></div></div>
+    </div>
+
+    <div class="section-label">🐛 Pest & Disease</div>
+    <div class="card">
+        <div class="tip"><div class="tip-icon">🧹</div><div><div class="tip-cat">Pest Control</div><div class="tip-title">Keep Fields Clean</div><div class="tip-body">Remove weeds, dead plants, and crop debris regularly — these are breeding grounds for pests and diseases that spread quickly during warm, humid weather.</div></div></div>
+        <div class="tip"><div class="tip-icon">🐞</div><div><div class="tip-cat">Pest Control</div><div class="tip-title">Try Natural Pest Control First</div><div class="tip-body">Use neem oil spray, companion planting, and beneficial insects before resorting to chemicals. This protects soil health and significantly reduces input costs.</div></div></div>
+    </div>
+
+    <div class="section-label">📦 Post-Harvest & Market</div>
+    <div class="card">
+        <div class="tip"><div class="tip-icon">📦</div><div><div class="tip-cat">Post-Harvest</div><div class="tip-title">Dry Grain Properly</div><div class="tip-body">Dry harvested grain to below 13% moisture before storage. Use hermetic (airtight) bags or metal silos to prevent aflatoxin and weevil damage that can destroy an entire harvest.</div></div></div>
+        <div class="tip"><div class="tip-icon">📈</div><div><div class="tip-cat">Market</div><div class="tip-title">Time Your Crop Sales</div><div class="tip-body">Crop prices are always lowest right after the harvest season. If you can store grain safely for 2–3 months, you can typically sell at significantly higher prices. Check the Market tab in AgriWeather Pro+ to monitor price trends.</div></div></div>
+    </div>
+
+    <footer>AgriWeather Pro+ • Precision Agriculture for Malawi Farmers</footer>
 </body>
 </html>

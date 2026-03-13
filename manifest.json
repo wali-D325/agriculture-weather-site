@@ -1,6 +1,7 @@
 {
   "short_name": "AgriWeather",
-  "name": "AgriWeather Pro+ Ultimate",
+  "name": "AgriWeather Pro+ Precision Agriculture",
+  "description": "Precision agriculture weather and crop advisory for Malawi farmers",
   "icons": [
     {
       "src": "https://cdn-icons-png.flaticon.com/512/2619/2619299.png",
@@ -10,8 +11,11 @@
     }
   ],
   "start_url": "./index.html",
-  "background_color": "#3d195d",
+  "background_color": "#080f09",
   "display": "standalone",
   "scope": "./",
-  "theme_color": "#008134"
+  "theme_color": "#7cfc00",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": ["agriculture", "weather", "utilities"]
 }
